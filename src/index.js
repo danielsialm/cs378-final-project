@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { HashRouter, Routes, Route } from "react-router-dom";
-import Home from './pages/Home';
+import Home from './pages/home/Home';
 import RecipeBrowse from './pages/RecipeBrowse';
 
 
