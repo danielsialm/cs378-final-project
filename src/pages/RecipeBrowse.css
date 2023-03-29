@@ -1,7 +1,14 @@
 .recipe-browse-wrapper {
   margin-left: 2em;
   margin-right: 2em;
+  margin-bottom: 6em;
+}
 
+.recipe-broswe-modal-wrapper {
+  margin-left: 2em !important;
+  margin-right: 2em !important;
+  margin-bottom: 6em !important;
+  background-color: white !important;
 }
 
 .recipe-browse-title-wrapper {
