@@ -1,11 +1,10 @@
 import React from "react";
-import '../App.css'
 
 const Home = () => {
   return (
     <div>
       <p className="title-txt">
-        Cook Your Way
+        &rarr; Cook Your Way &larr;
       </p>
     </div>
   )

@@ -1,5 +1,4 @@
 import React from "react";
-import '../App.css'
 
 const Schedule = () => {
   return (
