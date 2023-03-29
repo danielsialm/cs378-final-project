@@ -1,7 +1,16 @@
-import React from 'react'
+import { useState } from "react"
 import "./RecipeCard.css"
+import plus from "../assets/plus.svg"
+import check from "../assets/check.svg"
 
 const RecipeCard = ({item_name, time, img_src}) => {
+
+  const [clicked, setClicked] = useState(false)
+
+  const handleClick = () => {
+    setClicked(!clicked)
+  }
+
   return (
     <div className='recipe-card-wrapper'>
       <img src={require(`../assets/${img_src}`)} className="recipe-card-img"/>
@@ -12,8 +21,8 @@ const RecipeCard = ({item_name, time, img_src}) => {
             <p>{time} mins.</p>
           </div>
         </div>
-        <div>
-          <h1>+</h1> 
+        <div onClick={handleClick} className='recipe-card-add'>
+          <img src={clicked ? check : plus}/>
         </div>
       </div>
     </div>

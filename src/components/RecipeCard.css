@@ -31,3 +31,7 @@
 .recipe-card-info p {
   font-size: .9rem;
 }
+
+.recipe-card-add {
+  padding: .2em;
+}
