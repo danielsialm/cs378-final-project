@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import Home from './pages/Home.js'
+import Home from './pages/home/Home.js'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import RecipeBrowse from './pages/RecipeBrowse';
 
