@@ -12,16 +12,18 @@ import {ReactComponent as Bookmark} from "../../icons/bookmark.svg";
 import {ReactComponent as Award} from "../../icons/award.svg";
 import {ReactComponent as Clock} from "../../icons/clock.svg";
 
-
+import { useNavigate } from "react-router-dom";
 
 const links = [
-  {icon: Award, text: "Trending Recipes"},
-  {icon: Clock, text: "Recent Recipes"},
-  {icon: Bookmark, text: "Saved Recipes"},
-  {icon: Edit, text: "My Recipes"}
+  {icon: Award, text: "Trending Recipes", link:"/trendingrecipes"},
+  {icon: Clock, text: "Recent Recipes", link:"/recentrecipes"},
+  {icon: Bookmark, text: "Saved Recipes", link:"/savedrecipes"},
+  {icon: Edit, text: "My Recipes", link:"/myrecipes"}
 ]
 
+
 const Home = () => {
+
   return (
     <div className="w-screen h-auto md:p-8 p-4 flex flex-col items-center">
       <div className="md:w-2/3 w-full flex flex-col items-center space-y-12">
@@ -38,7 +40,7 @@ const Home = () => {
         </div>
         <div className="w-full flex flex-row flex-wrap">
           {links.map((link, i) => {
-            return <LinkCard Icon={link.icon} text = {link.text} pr = {i%2 == 0} key={i}></LinkCard>
+            return <LinkCard Icon={link.icon} text = {link.text} pr = {i%2 == 0} link={link.link} key={i}></LinkCard>
           })}
         </div>
         <div className="w-full">

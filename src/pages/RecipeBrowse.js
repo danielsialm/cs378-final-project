@@ -1,5 +1,4 @@
 import {useState} from "react";
-import Modal from '@mui/material/Modal'; 
 import Header from "../components/Header";
 import RecipeCard from "../components/RecipeCard";
 import "./RecipeBrowse.css"
@@ -8,7 +7,6 @@ import "./RecipeBrowse.css"
 const RecipeBrowse = ({page_name}) => {
 
   const [open, setOpen] = useState(false)
-
   const handleModalOpen = () => {
     setOpen(!open)
   }
