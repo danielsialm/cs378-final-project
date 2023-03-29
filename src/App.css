@@ -6,3 +6,55 @@
   text-align: center;
   color: black;
 }
+
+.menuBack {
+
+  float: left;
+  padding: 10px;
+  margin: 10px;
+
+}
+
+.menuFavorite {
+  float: right;
+  padding: 10px;
+  margin: 10px;
+}
+
+.menuInfo {
+  font-family: "Poppins";
+  font-weight: bold;
+  color: black;
+  padding-top: 4%;
+  margin-left: 5%;  
+}
+
+.menuTitle {
+  font-size: 30px;
+  margin-left: 25px;
+}
+
+.menuPrep {
+  font-size: 20px;
+  margin-left: 25px;
+  margin-bottom: 0px;
+}
+
+.menuCook {
+  font-size: 20px;
+  margin-left: 25px;
+  margin-bottom: 0px;
+}
+
+.menuGenerate {
+  background-color: rgb(56, 187, 56);
+  float: bottom;
+  color: whitesmoke;
+  margin-bottom: 5%;
+  border-radius: 12px;
+  width: 80px;
+  height: 25%;  
+  font-family: "Poppins";
+
+
+}
