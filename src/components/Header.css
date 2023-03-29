@@ -1,0 +1,10 @@
+.header-wrapper {
+  display: flex;
+  align-items: center;
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+.header-wrapper img {
+  margin-left: -.3em;
+}

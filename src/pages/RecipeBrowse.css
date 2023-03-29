@@ -1,0 +1,20 @@
+.recipe-browse-wrapper {
+  margin-left: 2em;
+  margin-right: 2em;
+
+}
+
+.recipe-browse-title-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3em;
+}
+
+.recipe-browse-filter {
+  height: 1em;
+}
+
+.recipe-browse-title-wrapper h1 {
+  font-size: 2rem;
+}
