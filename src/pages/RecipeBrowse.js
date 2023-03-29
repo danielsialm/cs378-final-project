@@ -15,15 +15,6 @@ const RecipeBrowse = ({page_name}) => {
 
   return (
     <>
-      <Modal
-        open={open}
-        onClose={handleModalOpen}
-      >
-        <div className="recipe-browse-modal-wrapper">
-          <h1>Hello</h1>
-          <h2>This is me</h2>
-        </div>
-      </Modal>
       <div className="recipe-browse-wrapper">
         <Header />
         <div className="recipe-browse-title-wrapper">
