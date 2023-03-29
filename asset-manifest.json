@@ -1,16 +1,27 @@
 {
   "files": {
-    "main.css": "/cs378-final-project/static/css/main.d8466f32.css",
-    "main.js": "/cs378-final-project/static/js/main.2c1d6d2d.js",
+    "main.css": "/cs378-final-project/static/css/main.35703ed3.css",
+    "main.js": "/cs378-final-project/static/js/main.3f635b20.js",
     "static/js/787.28cb0dcd.chunk.js": "/cs378-final-project/static/js/787.28cb0dcd.chunk.js",
-    "static/media/logo.svg": "/cs378-final-project/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "static/media/pizza.jpg": "/cs378-final-project/static/media/pizza.be8c684c5dd156a3027a.jpg",
+    "static/media/m&c.jpg": "/cs378-final-project/static/media/m&c.29e0fb75d3ae0b7b6972.jpg",
+    "static/media/steak.jpg": "/cs378-final-project/static/media/steak.4560962f93474ce5b61f.jpg",
     "index.html": "/cs378-final-project/index.html",
-    "main.d8466f32.css.map": "/cs378-final-project/static/css/main.d8466f32.css.map",
-    "main.2c1d6d2d.js.map": "/cs378-final-project/static/js/main.2c1d6d2d.js.map",
+    "static/media/sliders.svg": "/cs378-final-project/static/media/sliders.f7f169838f7f1e87e21d2ba4bddbfc3a.svg",
+    "static/media/edit.svg": "/cs378-final-project/static/media/edit.f9a985514490b053354591cb888b8cf9.svg",
+    "static/media/award.svg": "/cs378-final-project/static/media/award.1ca6c258ab69c5aa417a7f3f04f29e65.svg",
+    "static/media/user.svg": "/cs378-final-project/static/media/user.780a52a3688dd2fd0230fe4949982dd5.svg",
+    "static/media/search.svg": "/cs378-final-project/static/media/search.f9705ffe407455bd10ed6827af98d123.svg",
+    "static/media/clock.svg": "/cs378-final-project/static/media/clock.38585fec598ef79bfbd0c5c4b099074a.svg",
+    "static/media/plus.svg": "/cs378-final-project/static/media/plus.887d2aad484110b1f963a4231aa8b89d.svg",
+    "static/media/bookmark.svg": "/cs378-final-project/static/media/bookmark.4b8439822949fc7b58ef454d9500b3a4.svg",
+    "static/media/check.svg": "/cs378-final-project/static/media/check.a6151888542feae6b5840a95a69ed0b8.svg",
+    "main.35703ed3.css.map": "/cs378-final-project/static/css/main.35703ed3.css.map",
+    "main.3f635b20.js.map": "/cs378-final-project/static/js/main.3f635b20.js.map",
     "787.28cb0dcd.chunk.js.map": "/cs378-final-project/static/js/787.28cb0dcd.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.d8466f32.css",
-    "static/js/main.2c1d6d2d.js"
+    "static/css/main.35703ed3.css",
+    "static/js/main.3f635b20.js"
   ]
 }
