@@ -10,7 +10,6 @@ const RecipeCard = ({ title, id, image }) => {
   const [used, setUsed] = useState(0);
 
 
-  let publisher = useEventPublisher()
   const handleClick = () => {
     setClicked(!clicked);
     setUsed(used + 1);
