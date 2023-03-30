@@ -2,8 +2,11 @@ import { useState, useEffect } from "react";
 import "./RecipeCard.css";
 import plus from "../assets/plus.svg";
 import check from "../assets/check.svg";
+import { useNavigate } from "react-router";
 
 const RecipeCard = ({ title, id, image }) => {
+  const navigate = useNavigate();
+
   let items = JSON.parse(window.localStorage.getItem("items")) || [];
 
   const [clicked, setClicked] = useState(items.includes(title));
@@ -36,7 +39,7 @@ const RecipeCard = ({ title, id, image }) => {
 
 
   return (
-    <div className="recipe-card-wrapper">
+    <div className="recipe-card-wrapper" onClick={() => navigate('/recipe/' + id)}>
       <img src={image} alt={title} className="recipe-card-img" />
       <div className="recipe-card-info-wrapper">
         <div className="recipe-card-info">
