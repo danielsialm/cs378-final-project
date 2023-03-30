@@ -23,22 +23,6 @@ const links = [
  
 const Home = () => {
 
-  let subscriber = useEventSubscriber("update", (e) => {
-    let items = JSON.parse(window.localStorage.getItem('items')) || []
-
-    let index = items.indexOf(e)
-
-    let newArray = [...items]
-    if (index === -1) {
-      newArray = [...items, e]
-    } else {
-      items.splice(index, 1)
-      newArray = [...items]
-    }
-
-    // console.log(newArray)
-    window.localStorage.setItem('items', JSON.stringify(newArray));
-  })
 
   return (
     <div className="w-screen h-auto md:p-8 p-4 flex flex-col items-center">
