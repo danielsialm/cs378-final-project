@@ -9,6 +9,8 @@ const RecipeCard = ({ title, id, image }) => {
   const [clicked, setClicked] = useState(items.includes(title));
   const [used, setUsed] = useState(0);
 
+
+  let publisher = useEventPublisher()
   const handleClick = () => {
     setClicked(!clicked);
     setUsed(used + 1);
@@ -32,6 +34,7 @@ const RecipeCard = ({ title, id, image }) => {
       window.localStorage.setItem("items", JSON.stringify(newArray));
     }
   }, [used]);
+
 
   return (
     <div className="recipe-card-wrapper">
