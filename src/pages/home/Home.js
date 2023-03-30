@@ -1,4 +1,4 @@
-import React from "react";
+import {useState} from "react";
 import '../../App.css'
 import LinkCard from "./LinkCard";
 
@@ -12,7 +12,6 @@ import {ReactComponent as Bookmark} from "../../icons/bookmark.svg";
 import {ReactComponent as Award} from "../../icons/award.svg";
 import {ReactComponent as Clock} from "../../icons/clock.svg";
 
-import { useNavigate } from "react-router-dom";
 
 const links = [
   {icon: Award, text: "Trending Recipes", link:"/trendingrecipes"},
@@ -21,8 +20,9 @@ const links = [
   {icon: Edit, text: "My Recipes", link:"/myrecipes"}
 ]
 
-
+ 
 const Home = () => {
+
 
   return (
     <div className="w-screen h-auto md:p-8 p-4 flex flex-col items-center">
@@ -45,7 +45,15 @@ const Home = () => {
         </div>
         <div className="w-full">
           <div className="text-2xl font-bold mb-4">Your Menu</div>
-          <div className=" font-bold text-gray-500">Nothing here yet, select recipes to get started!</div>
+
+          {JSON.parse(window.localStorage.getItem('items')) && JSON.parse(window.localStorage.getItem('items')).length !== 0 ? Object.entries(JSON.parse(window.localStorage.getItem('items'))).map((item) => 
+          <div key={item[0]} className="w-full py-4 border-gray-100 shadow border-2 mb-4 rounded-lg px-2">
+            <h4 className="text-lg">{item[1]}</h4>
+          </div>): 
+          
+          <div className=" font-bold text-gray-500">Nothing here yet, select recipes to get started!</div>}
+
+          
         </div>
         
         <div className="w-full">

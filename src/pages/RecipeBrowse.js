@@ -6,11 +6,7 @@ import "./RecipeBrowse.css"
 import popularRecipes from "../data/popular.json"
 
 
-const RecipeBrowse = ({page_name}) => {
-  const [open, setOpen] = useState(false)
-  const handleModalOpen = () => {
-    setOpen(!open)
-  }
+const RecipeBrowse = ({pageName}) => {
 
   const [recipes, setRecipes] = useState(null);
   
@@ -50,13 +46,11 @@ const RecipeBrowse = ({page_name}) => {
       <div className="recipe-browse-wrapper">
         <Header />
         <div className="recipe-browse-title-wrapper">
-          <h1>{page_name}</h1>
-          <div className="recipe-browse-filter" onClick={handleModalOpen}>
+          <h1>{pageName}</h1>
+          <div className="recipe-browse-filter">
             <img src={require("../assets/filter.png")}/>
           </div>
         </div>
-      </div>
-      <div>
         <RecipesList />
       </div>
     </div>
