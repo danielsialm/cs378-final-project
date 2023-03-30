@@ -12,7 +12,8 @@ import {ReactComponent as Edit} from "../icons/edit.svg";
 import {ReactComponent as Bookmark} from "../icons/bookmark.svg";
 import {ReactComponent as Award} from "../icons/award.svg";
 import {ReactComponent as Clock} from "../icons/clock.svg";
-
+import { Button } from '@mui/material';
+import "./Home.css"
 
 const links = [
   {icon: Award, text: "Trending Recipes", link:"/trendingrecipes"},
@@ -45,12 +46,18 @@ const Home = () => {
           })}
         </div>
         <div className="w-full">
-          <div className="text-2xl font-bold mb-4" onClick={() => {navigate("/menu")}}>Your Menu</div>
+          <div className="text-2xl font-bold mb-4" >Your Menu</div>
 
-          {JSON.parse(window.localStorage.getItem('items')) && JSON.parse(window.localStorage.getItem('items')).length !== 0 ? Object.entries(JSON.parse(window.localStorage.getItem('items'))).map((item) => 
-          <div key={item[0]} className="w-full py-4 border-gray-100 shadow border-2 mb-4 rounded-lg px-2">
-            <h4 className="text-lg">{item[1]}</h4>
-          </div>): 
+          {JSON.parse(window.localStorage.getItem('items')) && JSON.parse(window.localStorage.getItem('items')).length !== 0 ? 
+          <>
+            {Object.entries(JSON.parse(window.localStorage.getItem('items'))).map((item) => 
+            <div key={item[0]} className="w-full py-4 border-gray-100 shadow border-2 mb-4 rounded-lg px-2">
+              <h4 className="text-lg">{item[1]}</h4>
+            </div>)}
+            <Button variant="contained" className="home-button" fullWidth onClick={() => {navigate("/menu")}}>
+              View menu
+            </Button>
+          </>: 
           
           <div className=" font-bold text-gray-500">Nothing here yet, select recipes to get started!</div>}
 
