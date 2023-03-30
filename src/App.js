@@ -10,17 +10,7 @@ import RecipeBrowse from './pages/RecipeBrowse';
 
 function App() {
   return (
-    <>
-      <div>
-        <Router basename="/cs378-final-project">
-          <Routes>
-            <Route exact path="/" element={<Home/>}/>
-            <Route exact path="/home" element={<Home/>}/>
-            <Route exact path="/menu" element={<Menu/>}/>
-          </Routes>
-        </Router>
-      </div>
-    </>
+    <></>
   );
 }
 

@@ -12,7 +12,6 @@ import {ReactComponent as Bookmark} from "../../icons/bookmark.svg";
 import {ReactComponent as Award} from "../../icons/award.svg";
 import {ReactComponent as Clock} from "../../icons/clock.svg";
 
-import { useEventSubscriber } from 'use-event-emitter-hook'
 
 const links = [
   {icon: Award, text: "Trending Recipes", link:"/trendingrecipes"},
@@ -23,23 +22,6 @@ const links = [
 
  
 const Home = () => {
-
-  let subscriber = useEventSubscriber("update", (e) => {
-    let items = JSON.parse(window.localStorage.getItem('items')) || []
-
-    let index = items.indexOf(e)
-
-    let newArray = [...items]
-    if (index === -1) {
-      newArray = [...items, e]
-    } else {
-      items.splice(index, 1)
-      newArray = [...items]
-    }
-
-    // console.log(newArray)
-    window.localStorage.setItem('items', JSON.stringify(newArray));
-  })
 
   return (
     <div className="w-screen h-auto md:p-8 p-4 flex flex-col items-center">
@@ -63,7 +45,7 @@ const Home = () => {
         <div className="w-full">
           <div className="text-2xl font-bold mb-4">Your Menu</div>
 
-          {JSON.parse(window.localStorage.getItem('items')).length !== -1 ? Object.entries(JSON.parse(window.localStorage.getItem('items'))).map((item) => 
+          {JSON.parse(window.localStorage.getItem('items')) && JSON.parse(window.localStorage.getItem('items')).length !== 0 ? Object.entries(JSON.parse(window.localStorage.getItem('items'))).map((item) => 
           <div key={item[0]} className="w-full py-4 border-gray-100 shadow border-2 mb-4 rounded-lg px-2">
             <h4 className="text-lg">{item[1]}</h4>
           </div>): 

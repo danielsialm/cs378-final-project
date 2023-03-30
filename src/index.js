@@ -13,10 +13,10 @@ root.render(
     <React.StrictMode>
       <Routes>
         <Route path="/" element={<Home />}/>
-        <Route path="/trendingrecipes" element={<RecipeBrowse page_name={"Trending Recipes"}/>}/>
-        <Route path="/recentrecipes" element={<RecipeBrowse page_name={"Recent Recipes"}/>}/>
-        <Route path="/savedrecipes" element={<RecipeBrowse page_name={"Saved Recipes"}/>}/>
-        <Route path="/myrecipes" element={<RecipeBrowse page_name={"My Recipes"}/>}/>
+        <Route path="/trendingrecipes" element={<RecipeBrowse pageName={"Trending Recipes"}/>}/>
+        <Route path="/recentrecipes" element={<RecipeBrowse pageName={"Recent Recipes"}/>}/>
+        <Route path="/savedrecipes" element={<RecipeBrowse pageName={"Saved Recipes"}/>}/>
+        <Route path="/myrecipes" element={<RecipeBrowse pageName={"My Recipes"}/>}/>
       </Routes>
     </React.StrictMode>
   </HashRouter>
