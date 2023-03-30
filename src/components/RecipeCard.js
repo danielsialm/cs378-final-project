@@ -2,14 +2,20 @@ import { useState } from "react"
 import "./RecipeCard.css"
 import plus from "../assets/plus.svg"
 import check from "../assets/check.svg"
+import { useEventSubscriber, useEventPublisher } from 'use-event-emitter-hook'
 
 const RecipeCard = ({item_name, time, img_src}) => {
 
-  const [clicked, setClicked] = useState(false)
+  let items = JSON.parse(window.localStorage.getItem('items'))
 
+  const [clicked, setClicked] = useState(items.includes(item_name))
+
+  let publisher = useEventPublisher()
   const handleClick = () => {
     setClicked(!clicked)
+    publisher("update", item_name)
   }
+
 
   return (
     <div className='recipe-card-wrapper'>
