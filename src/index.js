@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import RecipeBrowse from './pages/RecipeBrowse';
 import Menu from './pages/Menu';
 import Schedule from './pages/Schedule';
+import Recipe from './pages/Recipe';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -21,6 +22,7 @@ root.render(
         <Route path="/myrecipes" element={<RecipeBrowse pageName={"My Recipes"}/>}/>
         <Route path="/menu" element={<Menu />}/>
         <Route path="/schedule" element={<Schedule />}/>
+        <Route path="/recipe/:id" element={<Recipe />}/>
       </Routes>
     </React.StrictMode>
   </HashRouter>
