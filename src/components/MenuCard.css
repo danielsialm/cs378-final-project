@@ -46,5 +46,12 @@
 
   .menu-card-quantity {
     font-size: 1.4rem;
-    margin-bottom: .2em;
+    padding-left: .2em;
+    padding-right: .2em;
+  }
+
+  .quantity-selector-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Header from "../components/Header";
-import RecipeCard from "../components/RecipeCard";
+import RecipesList from "../components/RecipesList"
 import "./RecipeBrowse.css"
 
 import popularRecipes from "../data/popular.json"
@@ -25,33 +25,17 @@ const RecipeBrowse = ({pageName}) => {
     setRecipes(popularRecipes["results"]);
   }, []);
 
-  const RecipesList = () => {
-    if (recipes)
-      return (
-        recipes.map(item =>
-        <div key={item["id"]}>{
-          <RecipeCard 
-            title={item["title"]}
-            id={item["id"]}
-            image={item["image"]}
-          />
-        }</div>
-        )
-      )
-    return null;
-  }
-
   return (
     <div>
       <div className="recipe-browse-wrapper">
-        <Header />
+        <Header back='/'/>
         <div className="recipe-browse-title-wrapper">
           <h1>{pageName}</h1>
           <div className="recipe-browse-filter">
             <img src={require("../assets/filter.png")}/>
           </div>
         </div>
-        <RecipesList />
+        <RecipesList recipes={recipes}/>
       </div>
     </div>
   )

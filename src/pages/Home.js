@@ -1,16 +1,17 @@
-import {useState} from "react";
-import '../../App.css'
-import LinkCard from "./LinkCard";
+import '../App.css'
+import LinkCard from "../components/LinkCard";
 
-import {ReactComponent as User} from "../../icons/user.svg"
+import { useNavigate } from 'react-router'
 
-import {ReactComponent as Search} from "../../icons/search.svg";
-import {ReactComponent as Options} from "../../icons/sliders.svg";
+import {ReactComponent as User} from "../icons/user.svg"
 
-import {ReactComponent as Edit} from "../../icons/edit.svg";
-import {ReactComponent as Bookmark} from "../../icons/bookmark.svg";
-import {ReactComponent as Award} from "../../icons/award.svg";
-import {ReactComponent as Clock} from "../../icons/clock.svg";
+import {ReactComponent as Search} from "../icons/search.svg";
+import {ReactComponent as Options} from "../icons/sliders.svg";
+
+import {ReactComponent as Edit} from "../icons/edit.svg";
+import {ReactComponent as Bookmark} from "../icons/bookmark.svg";
+import {ReactComponent as Award} from "../icons/award.svg";
+import {ReactComponent as Clock} from "../icons/clock.svg";
 
 
 const links = [
@@ -22,7 +23,7 @@ const links = [
 
  
 const Home = () => {
-
+  const navigate = useNavigate();
 
   return (
     <div className="w-screen h-auto md:p-8 p-4 flex flex-col items-center">
@@ -40,11 +41,11 @@ const Home = () => {
         </div>
         <div className="w-full flex flex-row flex-wrap">
           {links.map((link, i) => {
-            return <LinkCard Icon={link.icon} text = {link.text} pr = {i%2 == 0} link={link.link} key={i}></LinkCard>
+            return <LinkCard Icon={link.icon} text = {link.text} pr = {i%2 === 0} link={link.link} key={i}></LinkCard>
           })}
         </div>
         <div className="w-full">
-          <div className="text-2xl font-bold mb-4">Your Menu</div>
+          <div className="text-2xl font-bold mb-4" onClick={() => {navigate("/menu")}}>Your Menu</div>
 
           {JSON.parse(window.localStorage.getItem('items')) && JSON.parse(window.localStorage.getItem('items')).length !== 0 ? Object.entries(JSON.parse(window.localStorage.getItem('items'))).map((item) => 
           <div key={item[0]} className="w-full py-4 border-gray-100 shadow border-2 mb-4 rounded-lg px-2">

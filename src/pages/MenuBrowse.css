@@ -1,0 +1,16 @@
+.your-menu-wrapper {
+  margin-left: 2em;
+  margin-right: 2em;
+  margin-bottom: 6em;
+}
+
+.your-menu-title-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3em;
+}
+
+.your-menu-title-wrapper h1 {
+  font-size: 2rem;
+}
