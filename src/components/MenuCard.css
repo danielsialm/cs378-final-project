@@ -1,0 +1,50 @@
+.menu-card-wrapper {
+    width: 100%;
+    border-radius: .5em;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    margin-bottom: 2em;
+  }
+  
+  .menu-card-img {
+    width: 100%;
+    object-fit: cover;
+    height: 8em;
+    border-top-left-radius: .5em;
+    border-top-right-radius: .5em;
+  }
+  
+  .menu-card-info-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1.1em;
+    padding-left: .6em;
+    padding-right: .6em;
+    padding-top: .3em;
+  }
+  
+  .menu-card-info {
+    width: 80%;
+  }
+  
+  .menu-card-info h3{
+    font-size: 1.4rem;
+    margin-bottom: .2em;
+  }
+  
+  .menu-card-info p {
+    font-size: .9rem;
+  }
+  
+  .menu-card-add {
+    padding: .2em;
+  }
+
+  .menu-card-minus {
+    padding: .2em;
+  }
+
+  .menu-card-quantity {
+    font-size: 1.4rem;
+    margin-bottom: .2em;
+  }

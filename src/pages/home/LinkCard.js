@@ -14,4 +14,4 @@ function LinkCard({Icon, text, pr, link}) {
   )
 }
 
-export default LinkCard
+export default LinkCard;

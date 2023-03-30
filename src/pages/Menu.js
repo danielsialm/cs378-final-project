@@ -21,16 +21,36 @@ const Menu = () => {
 
       <Row>
         <Row>
-          <div class="menuTitle">
+          <div className="menuTitle">
             <h1>Your Menu</h1>
           </div>
-          <div class="menuPrep">
+          <div className="menuPrep">
             <p>30 minute prep</p>
           </div>
-          <div class="menuCook">
+          <div className="menuCook">
             <p>1 hour cook</p>
           </div>
-          <button class="menuGenerate">
+          <div className="menuRecipes">
+            <MenuCard 
+              item_name="Pan-Seared Steak"
+              time="40"
+              img_src="steak.jpg"
+            />
+
+            <MenuCard 
+              item_name="Baked Mac and Cheese"
+              time="25"
+              img_src="m&c.jpg"
+            />          
+
+            <MenuCard 
+              item_name="Pizza"
+              time="30"
+              img_src="pizza.jpg"
+            />
+          
+          </div>
+          <button className="menuGenerate">
             Generate Recipe
           </button>
         </Row>
