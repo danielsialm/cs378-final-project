@@ -23,6 +23,7 @@ const links = [
  
 const Home = () => {
 
+
   return (
     <div className="w-screen h-auto md:p-8 p-4 flex flex-col items-center">
       <div className="md:w-2/3 w-full flex flex-col items-center space-y-12">
