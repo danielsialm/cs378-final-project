@@ -13,9 +13,10 @@ const RecipeCard = ({ title, id, image }) => {
   const [used, setUsed] = useState(0);
 
 
-  const handleClick = () => {
+  const handleClick = (e) => {
     setClicked(!clicked);
     setUsed(used + 1);
+    e.stopPropagation()
   };
 
   useEffect(() => {
