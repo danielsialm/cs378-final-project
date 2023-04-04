@@ -6,11 +6,12 @@ import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import MenuList from '../components/MenuList';
 import MenuCard from '../components/MenuCard';
+import { Button } from "@mui/material";
 
 const Menu = () => {
   const navigate = useNavigate();
 
-  const [recipes, setRecipes] = useState(null);
+  const [recipes, setRecipes] = useState(Object.values(JSON.parse(window.localStorage.getItem("items"))));
 
   const test_data =   [
   {
@@ -33,10 +34,10 @@ const Menu = () => {
         <div className="your-menu-title-wrapper">
           <h1>Your Menu</h1>
         </div>
-        <MenuList recipes={ test_data }/>
-        <button onClick={() => {navigate("/schedule")}} className="menuGenerate">
+        <MenuList recipes={ recipes }/>
+        <Button onClick={() => {navigate("/schedule")}} className="menuGenerate" variant="contained" fullWidth>
           Generate Recipe
-        </button>
+        </Button>
       </div>
     </div>
   )
