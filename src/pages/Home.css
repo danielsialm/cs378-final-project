@@ -1,0 +1,10 @@
+.home-button {
+  background-color: #2a9d8f !important;
+  margin-top: .4em !important;
+  padding-top: .4em !important;
+  padding-bottom: .4em !important;
+  font-size: 1.3rem !important;
+  font-weight: 700 !important;
+  letter-spacing: .1rem;
+  text-transform: capitalize;
+}
