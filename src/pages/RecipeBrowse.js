@@ -3,7 +3,7 @@ import Header from "../components/Header";
 import RecipesList from "../components/RecipesList"
 import "./RecipeBrowse.css"
 
-import popularRecipes from "../data/popular.json"
+import popularRecipes from "../data/popular"
 
 
 const RecipeBrowse = ({pageName}) => {
