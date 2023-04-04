@@ -50,9 +50,9 @@ const Home = () => {
 
           {JSON.parse(window.localStorage.getItem('items')) && JSON.parse(window.localStorage.getItem('items')).length !== 0 ? 
           <>
-            {Object.entries(JSON.parse(window.localStorage.getItem('items'))).map((item) => 
-            <div key={item[0]} className="w-full py-4 border-gray-100 shadow border-2 mb-4 rounded-lg px-2">
-              <h4 className="text-lg">{item[1]}</h4>
+            {Object.values(JSON.parse(window.localStorage.getItem('items'))).map((item) => 
+            <div key={item.id} className="w-full py-4 border-gray-100 shadow border-2 mb-4 rounded-lg px-2">
+              <h4 className="text-lg">{item.title}</h4>
             </div>)}
             <Button variant="contained" className="home-button" fullWidth onClick={() => {navigate("/menu")}}>
               View menu

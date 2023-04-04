@@ -9,7 +9,11 @@ const RecipeCard = ({ title, id, image }) => {
 
   let items = JSON.parse(window.localStorage.getItem("items")) || [];
 
-  const [clicked, setClicked] = useState(items.includes(title));
+  let currentItem = {}
+  currentItem.title = title
+  currentItem.image = image
+  currentItem.id = id
+  const [clicked, setClicked] = useState(items.some(item => item.id === id));
   const [used, setUsed] = useState(0);
 
 
@@ -23,11 +27,13 @@ const RecipeCard = ({ title, id, image }) => {
     if (used) {
       let items = JSON.parse(window.localStorage.getItem("items")) || [];
 
-      let index = items.indexOf(title);
+      let index = items.findIndex(item => item.id === id);
+
+
       console.log(index);
       let newArray = [...items];
       if (index === -1) {
-        newArray = [...items, title];
+        newArray = [...items, currentItem];
       } else {
         items.splice(index, 1);
         newArray = [...items];
