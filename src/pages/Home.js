@@ -31,7 +31,7 @@ const Home = () => {
       <div className="md:w-2/3 w-full flex flex-col items-center space-y-12">
         <div className="w-full flex flex-row justify-end align-end items-center">
           <div className="w-12 h-12 rounded-full border-2 border-gray-100 shadow flex items-center justify-center">
-            <User></User>
+            <User onClick={() => {navigate("/profile")}}></User>
           </div>
         </div>
         <div className="md:text-5xl text-4xl font-bold">Cook Your Way</div>

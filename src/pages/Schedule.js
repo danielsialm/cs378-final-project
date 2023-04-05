@@ -23,7 +23,7 @@ const Schedule = () => {
 
   const handleFinish = () => {
     window.localStorage.setItem("items", JSON.stringify([]));
-    navigate("/");
+    navigate("/home");
   }
 
   return (

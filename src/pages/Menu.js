@@ -30,7 +30,7 @@ const Menu = () => {
   return (
     <div>
       <div className="your-menu-wrapper">
-        <Header  back='/'/>
+        <Header  back='/home'/>
         <div className="your-menu-title-wrapper">
           <h1>Your Menu</h1>
         </div>

@@ -8,14 +8,19 @@ import RecipeBrowse from './pages/RecipeBrowse';
 import Menu from './pages/Menu';
 import Schedule from './pages/Schedule';
 import Recipe from './pages/Recipe';
-
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Profile from './pages/Profile';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <HashRouter>
     <React.StrictMode>
       <Routes>
-        <Route path="/" element={<Home />}/>
+        <Route path="/" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/home" element={<Home />}/>
         <Route path="/trendingrecipes" element={<RecipeBrowse pageName={"Trending Recipes"}/>}/>
         <Route path="/recentrecipes" element={<RecipeBrowse pageName={"Recent Recipes"}/>}/>
         <Route path="/savedrecipes" element={<RecipeBrowse pageName={"Saved Recipes"}/>}/>
