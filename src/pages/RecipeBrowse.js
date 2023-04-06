@@ -28,7 +28,7 @@ const RecipeBrowse = ({pageName}) => {
   return (
     <div>
       <div className="recipe-browse-wrapper">
-        <Header back='/'/>
+        <Header back='/home'/>
         <div className="recipe-browse-title-wrapper">
           <h1>{pageName}</h1>
           <div className="recipe-browse-filter">
