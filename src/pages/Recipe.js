@@ -39,6 +39,11 @@ const Recipe = () => {
 
     setIngredients(recipeData["extendedIngredients"].map(item => item.original));
     setSteps(recipeData["analyzedInstructions"][0]["steps"].map(item => item.step));
+    const equipmentSet = new Set();
+    recipeData["analyzedInstructions"][0]["steps"].forEach(element => {
+      element.equipment.forEach(item => equipmentSet.add(item.name));
+    });
+    setEquipment(Array.from(equipmentSet));
   }, []);
 
   return (
