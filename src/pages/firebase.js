@@ -79,4 +79,5 @@ export {
   logInWithEmailAndPassword,
   registerWithEmailAndPassword,
   logout,
+  firebaseConfig
 };
