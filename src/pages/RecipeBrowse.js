@@ -8,8 +8,6 @@ import popularRecipes from "../data/popular";
 
 
 const RecipeBrowse = ({ pageName }) => {
-
-const RecipeBrowse = ({ pageName }) => {
   const [recipes, setRecipes] = useState(null);
 
   // const src = 'https://api.spoonacular.com/recipes/complexSearch?apiKey=09a121a6694d4d7e8473e2226fefe82f&sort=popularity'
