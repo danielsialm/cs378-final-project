@@ -1,5 +1,6 @@
 import '../App.css'
 import LinkCard from "../components/LinkCard";
+import YourMenuItem from '../components/YourMenuItem';
 
 import { useNavigate } from 'react-router'
 
@@ -12,7 +13,10 @@ import {ReactComponent as Edit} from "../icons/edit.svg";
 import {ReactComponent as Bookmark} from "../icons/bookmark.svg";
 import {ReactComponent as Award} from "../icons/award.svg";
 import {ReactComponent as Clock} from "../icons/clock.svg";
+
 import { Button } from '@mui/material';
+
+import { useState } from 'react';
 import "./Home.css"
 
 const links = [
@@ -22,12 +26,15 @@ const links = [
   {icon: Edit, text: "My Recipes", link:"/myrecipes"}
 ]
 
+
+
  
 const Home = () => {
   const navigate = useNavigate();
+  const [reload, setReload] = useState(0) // Used to reload the page when you remove item from Your Menu
 
   return (
-    <div className="w-screen h-auto md:p-8 p-4 flex flex-col items-center">
+    <div className="w-screen h-auto md:p-8 p-4 flex flex-col items-center mb-24">
       <div className="md:w-2/3 w-full flex flex-col items-center space-y-12">
         <div className="w-full flex flex-row justify-end align-end items-center">
           <div className="w-12 h-12 rounded-full border-2 border-gray-100 shadow flex items-center justify-center">
@@ -51,9 +58,12 @@ const Home = () => {
           {JSON.parse(window.localStorage.getItem('items')) && JSON.parse(window.localStorage.getItem('items')).length !== 0 ? 
           <>
             {Object.values(JSON.parse(window.localStorage.getItem('items'))).map((item) => 
-            <div key={item.id} className="w-full py-4 border-gray-100 shadow border-2 mb-4 rounded-lg px-2">
-              <h4 className="text-lg">{item.title}</h4>
-            </div>)}
+            // <div key={item.id} className="w-full py-4 border-gray-100 shadow border-2 mb-4 rounded-lg px-2 flex justify-between">
+            //   <h4 className="text-lg">{item.title}</h4>
+            //   <X className='stroke-red-500' onClick={handleDelete}/>
+            // </div>
+              <YourMenuItem id={item.id} title={item.title} key={item.id} setReload={setReload} reload={setReload}/>
+            )}
             <Button variant="contained" className="home-button" fullWidth onClick={() => {navigate("/menu")}}>
               View menu
             </Button>
