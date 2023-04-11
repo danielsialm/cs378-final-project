@@ -1,8 +1,12 @@
 .header-wrapper {
   display: flex;
   align-items: center;
-  margin-top: 2em;
-  margin-bottom: 2em;
+  padding: 2em;
+  position: sticky;
+  top: 0;
+  left: 0;
+  background-color: white;
+  z-index: 999;
 }
 
 .header-wrapper img {
