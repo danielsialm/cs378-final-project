@@ -5,12 +5,32 @@
   margin-bottom: 2em;
 }
 
+.recipe-card-img-wrapper {
+  position: relative;
+}
+
+.save-recipe-button-wrapper {
+  position: absolute;
+  top: .5em;
+  right: .5em;
+  height: 3em;
+  width: 2em;
+}
+
+.save-recipe-button {
+  height: 30px;
+  width: 30px;
+}
+
+
 .recipe-card-img {
   width: 100%;
   object-fit: cover;
   height: 8em;
   border-top-left-radius: .5em;
   border-top-right-radius: .5em;
+  position: relative;
+  z-index: -1;
 }
 
 .recipe-card-info-wrapper {

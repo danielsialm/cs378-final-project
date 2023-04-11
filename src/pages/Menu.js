@@ -1,11 +1,11 @@
 import React from "react";
-import '../App.css';
-import './MenuBrowse.css';
+import "../App.css";
+import "./MenuBrowse.css";
 import { useState } from "react";
-import { useNavigate } from 'react-router-dom';
-import Header from '../components/Header';
-import MenuList from '../components/MenuList';
-import MenuCard from '../components/MenuCard';
+import { useNavigate } from "react-router-dom";
+import Header from "../components/Header";
+import MenuList from "../components/MenuList";
+import MenuCard from "../components/MenuCard";
 import { Button } from "@mui/material";
 
 import {ReactComponent as Bookmark} from "../assets/icons/bookmark.svg";
@@ -39,13 +39,20 @@ const Menu = () => {
 
   return (
     <div>
+      <Header back='/home' Right= {Bookmark} rightOnClick = {handleClickOpen}/>
       <div className="your-menu-wrapper">
-        <Header back='/home' Right= {Bookmark} rightOnClick = {handleClickOpen}/>
+        
         <div className="your-menu-title-wrapper">
           <h1>Your Menu</h1>
         </div>
-        <MenuList recipes={ recipes }/>
-        <Button onClick={() => {navigate("/schedule")}} className="menuGenerate" variant="contained" fullWidth>
+        <MenuList recipes={recipes} />
+        <Button
+          onClick={() => {
+            navigate("/schedule");
+          }}
+          className="menuGenerate"
+          variant="contained"
+          fullWidth>
           Generate Schedule
         </Button>
       </div>
@@ -68,7 +75,7 @@ const Menu = () => {
         </DialogActions>
       </Dialog>
     </div>
-  )
-}
+  );
+};
 
 export default Menu;
