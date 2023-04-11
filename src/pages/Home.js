@@ -4,16 +4,15 @@ import YourMenuItem from '../components/YourMenuItem';
 
 import { useNavigate } from 'react-router'
 
-import {ReactComponent as User} from "../icons/user.svg"
+import {ReactComponent as User} from "../assets/icons/user.svg"
 
-import {ReactComponent as Search} from "../icons/search.svg";
-import {ReactComponent as Options} from "../icons/sliders.svg";
+import {ReactComponent as Search} from "../assets/icons/search.svg";
+import {ReactComponent as Options} from "../assets/icons/sliders.svg";
 
-import {ReactComponent as Edit} from "../icons/edit.svg";
-import {ReactComponent as Bookmark} from "../icons/bookmark.svg";
-import {ReactComponent as Award} from "../icons/award.svg";
-import {ReactComponent as Clock} from "../icons/clock.svg";
-
+import {ReactComponent as Edit} from "../assets/icons/edit.svg";
+import {ReactComponent as Bookmark} from "../assets/icons/bookmark.svg";
+import {ReactComponent as Award} from "../assets/icons/award.svg";
+import {ReactComponent as Clock} from "../assets/icons/clock.svg";
 import { Button } from '@mui/material';
 
 import { useState } from 'react';
