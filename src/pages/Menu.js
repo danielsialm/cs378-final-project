@@ -36,6 +36,28 @@ const Menu = () => {
     setOpen(false);
   };
 
+  const saveMenu = () => {
+    handleClose();
+    if(!auth){
+      alert("Please login to save recipes");
+      return;
+    }
+    console.log(recipes);
+    let send = {name: menuTitle, items: recipes};
+    setMenuTitle("");
+    return fetch(`${firebaseConfig.databaseURL + "/" + auth.currentUser.uid}/menus.json`, {
+      method: "POST",
+      body: JSON.stringify(send)
+    }).then((res) => {
+      if (res.status !== 200) {
+        console.log(res.statusText);
+        // throw new Error(res.statusText);
+      } else {
+        console.log("success");
+        return;
+      }
+    });
+  }
 
   return (
     <div>
@@ -64,14 +86,15 @@ const Menu = () => {
             margin="dense"
             id="name"
             label="Name"
-            type="email"
+            type="text"
             fullWidth
             variant="standard"
+            onChange={(e) => setMenuTitle(e.target.value)}
           />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Save</Button>
+          <Button onClick={saveMenu}>Save</Button>
         </DialogActions>
       </Dialog>
     </div>
