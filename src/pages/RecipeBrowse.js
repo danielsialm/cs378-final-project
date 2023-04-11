@@ -4,9 +4,10 @@ import RecipesList from "../components/RecipesList"
 import "./RecipeBrowse.css"
 
 import popularRecipes from "../data/popular"
+import recentRecipes from "../data/recent"
 
 
-const RecipeBrowse = ({pageName}) => {
+const RecipeBrowse = ({ pageName }) => {
 
   const [recipes, setRecipes] = useState(null);
   
@@ -22,7 +23,10 @@ const RecipeBrowse = ({pageName}) => {
 
   // local
   useEffect(() => {
-    setRecipes(popularRecipes["results"]);
+    if (pageName === "Trending Recipes")
+      setRecipes(popularRecipes.results);
+    else if (pageName === "Recent Recipes")
+      setRecipes(recentRecipes.results);
   }, []);
 
   return (

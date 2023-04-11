@@ -50,6 +50,9 @@ function Register() {
         <div>
           Already have an account? <Link to="/">Login</Link> now.
         </div>
+        <div>
+          Don't want an account? <Link to="/home">Login as a guest</Link> now.
+        </div>
       </div>
     </div>
   );

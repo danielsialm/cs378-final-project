@@ -41,6 +41,9 @@ function Login() {
         <div>
           Don't have an account? <Link to="/register">Register</Link> now.
         </div>
+        <div>
+          Don't want an account? <Link to="/home">Login as a guest</Link> now.
+        </div>
       </div>
     </div>
   );
