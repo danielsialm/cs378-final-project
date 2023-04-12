@@ -38,8 +38,8 @@ const Menu = () => {
 
   const saveMenu = () => {
     handleClose();
-    if(!auth){
-      alert("Please login to save recipes");
+    if(!auth || !auth.currentUser){
+      alert("Please login to save your menu");
       return;
     }
     console.log(recipes);

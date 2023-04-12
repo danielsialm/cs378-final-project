@@ -52,7 +52,7 @@ const Recipe = () => {
   return (
 
     <div className="space-y-4 mx-8">
-    <Header back="/menu" />
+       <Header back={-1} />
     <div>
       <h1 className="text-4xl font-bold mb-8">{name}</h1>
     </div>
