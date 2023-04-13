@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/cs378-final-project/static/css/main.f6d23f14.css",
-    "main.js": "/cs378-final-project/static/js/main.2b5f83bb.js",
+    "main.css": "/cs378-final-project/static/css/main.b1d01729.css",
+    "main.js": "/cs378-final-project/static/js/main.0efc20b0.js",
     "static/js/787.28cb0dcd.chunk.js": "/cs378-final-project/static/js/787.28cb0dcd.chunk.js",
     "index.html": "/cs378-final-project/index.html",
     "static/media/sliders.svg": "/cs378-final-project/static/media/sliders.f7f169838f7f1e87e21d2ba4bddbfc3a.svg",
@@ -11,15 +11,17 @@
     "static/media/search.svg": "/cs378-final-project/static/media/search.f9705ffe407455bd10ed6827af98d123.svg",
     "static/media/clock.svg": "/cs378-final-project/static/media/clock.38585fec598ef79bfbd0c5c4b099074a.svg",
     "static/media/plus.svg": "/cs378-final-project/static/media/plus.887d2aad484110b1f963a4231aa8b89d.svg",
+    "static/media/x.svg": "/cs378-final-project/static/media/x.6c9a4ba71a333be7b021fc6da39d864c.svg",
     "static/media/bookmark.svg": "/cs378-final-project/static/media/bookmark.4b8439822949fc7b58ef454d9500b3a4.svg",
+    "static/media/chevron-left.svg": "/cs378-final-project/static/media/chevron-left.982a40d4f9e3cf9fdaeaf4af9da46c14.svg",
     "static/media/check.svg": "/cs378-final-project/static/media/check.a6151888542feae6b5840a95a69ed0b8.svg",
     "static/media/minus.svg": "/cs378-final-project/static/media/minus.595a628f1d89b51f5ee67012ae076ac8.svg",
-    "main.f6d23f14.css.map": "/cs378-final-project/static/css/main.f6d23f14.css.map",
-    "main.2b5f83bb.js.map": "/cs378-final-project/static/js/main.2b5f83bb.js.map",
+    "main.b1d01729.css.map": "/cs378-final-project/static/css/main.b1d01729.css.map",
+    "main.0efc20b0.js.map": "/cs378-final-project/static/js/main.0efc20b0.js.map",
     "787.28cb0dcd.chunk.js.map": "/cs378-final-project/static/js/787.28cb0dcd.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.f6d23f14.css",
-    "static/js/main.2b5f83bb.js"
+    "static/css/main.b1d01729.css",
+    "static/js/main.0efc20b0.js"
   ]
 }
