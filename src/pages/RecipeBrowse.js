@@ -2,6 +2,9 @@ import { useState, useEffect } from "react";
 import Header from "../components/Header";
 import RecipesList from "../components/RecipesList";
 import "./RecipeBrowse.css";
+import axios from "axios";
+import { firebaseConfig, auth } from "./firebase";
+
 
 import recentRecipes from "../data/recent"
 import popularRecipes from "../data/popular";
@@ -22,10 +25,27 @@ const RecipeBrowse = ({ pageName }) => {
 
   // local
   useEffect(() => {
+    console.log(pageName)
     if (pageName === "Trending Recipes")
       setRecipes(popularRecipes.results);
     else if (pageName === "Recent Recipes")
       setRecipes(recentRecipes.results);
+    else if (pageName === "Saved Recipes") {
+      axios
+      .get(
+        `${
+          firebaseConfig.databaseURL + "/" + auth.currentUser.uid
+        }/recipes.json`,
+        {
+          method: "GET",
+        }
+      ).then((res) => {
+        if (res.data) {
+          setRecipes(Object.values(res.data))
+        }
+      })
+    }
+      
   }, []);
 
   return (

@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
+import axios from "axios";
 import "./RecipeCard.css";
 import plus from "../assets/plus.svg";
 import check from "../assets/check.svg";
 import { useNavigate } from "react-router";
-import {ReactComponent as Bookmark} from "../assets/bookmark.svg"
+import { ReactComponent as Bookmark } from "../assets/bookmark.svg";
+import { firebaseConfig, auth } from "../pages/firebase";
 
 const RecipeCard = ({ title, id, image }) => {
   const navigate = useNavigate();
@@ -16,7 +18,36 @@ const RecipeCard = ({ title, id, image }) => {
   currentItem.id = id;
   const [clicked, setClicked] = useState(items.some((item) => item.id === id));
   const [used, setUsed] = useState(0);
-  const [save, setSaved] = useState(false)
+  const [save, setSaved] = useState(false);
+  const [savedRecipes, setSavedRecipes] = useState([]);
+
+  useEffect(() => {
+    if (auth) {
+      console.log("running")
+      axios
+        .get(
+          `${
+            firebaseConfig.databaseURL + "/" + auth.currentUser.uid
+          }/recipes.json`,
+          {
+            method: "GET",
+          }
+        )
+        .then((res) => {
+          if (res.data) {
+            let recipes = Object.values(res.data);
+            // console.log(recipes)
+
+            // this useEffect doesn't run when state is altered. So to avoid
+            // having to make an api call each time, we will save the recipes
+            // Probably don't need to save recipes. Can just do a get request 
+            // each time you click on save. In fact, that's probably better tbh
+            setSaved(recipes.some((recipe) => recipe.id === id));
+            setSavedRecipes(recipes);
+          }
+        });
+    }
+  }, []);
 
   const handleClick = (e) => {
     setClicked(!clicked);
@@ -26,11 +57,61 @@ const RecipeCard = ({ title, id, image }) => {
 
   const handleSave = (e) => {
 
-    // TODO: add code to save recipes to database
+    if (!auth) {
+      alert("Please login to save recipes!");
+    } else {
+      let index = savedRecipes.findIndex((recipe) => {
+        return recipe.id === id;
+      });
 
-    setSaved(!save)
+      console.log(index)
+
+      // Recipe not saved yet
+      if (index === -1) {
+        axios
+          .post(
+            `${
+              firebaseConfig.databaseURL + "/" + auth.currentUser.uid
+            }/recipes.json`,
+            JSON.stringify(currentItem)
+          )
+          .then((res) => {
+            setSavedRecipes([...savedRecipes, currentItem]);
+            setSaved(true)
+          });
+      } else {
+
+        // Need to get from database because need the db assigned id of the 
+        // items so we can delete the right one
+        axios
+        .get(
+          `${
+            firebaseConfig.databaseURL + "/" + auth.currentUser.uid
+          }/recipes.json`,
+          {
+            method: "GET",
+          }
+        ).then((res) => {
+
+          // Get the id of item in database and use it to delete the item
+          let db_item_id = Object.keys(res.data)[index]
+          setSaved(false)
+          axios.delete(`${
+            firebaseConfig.databaseURL + "/" + auth.currentUser.uid
+          }/recipes/${db_item_id}.json`)
+          .then((res) => {
+            
+            // update our state
+            let copy = [...savedRecipes]
+            copy.splice(index, 1)
+            setSavedRecipes(copy)
+          })
+        })
+      }
+    }
+
     e.stopPropagation();
-  }
+  };
 
   useEffect(() => {
     if (used) {
@@ -59,11 +140,13 @@ const RecipeCard = ({ title, id, image }) => {
       <div className="recipe-card-img-wrapper">
         <img src={image} alt={title} className="recipe-card-img" />
         <div className="save-recipe-button-wrapper" onClick={handleSave}>
-
           {/* <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill={save ? "#FEE135" : "none"} stroke="#FEE135" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg> */}
 
-          <Bookmark className={`w-8 h-8 ${save ? "fill-[#FEE135]" : ""} stroke-[#FEE135]`}/>
-
+          <Bookmark
+            className={`w-8 h-8 ${
+              save ? "fill-[#FEE135]" : ""
+            } stroke-[#FEE135]`}
+          />
         </div>
       </div>
       <div className="recipe-card-info-wrapper">
