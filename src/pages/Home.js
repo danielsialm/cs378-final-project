@@ -15,8 +15,10 @@ import {ReactComponent as Award} from "../assets/icons/award.svg";
 import {ReactComponent as Clock} from "../assets/icons/clock.svg";
 import { Button } from '@mui/material';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import "./Home.css"
+import { firebaseConfig, auth } from "./firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 const links = [
   {icon: Award, text: "Trending Recipes", link:"/trendingrecipes"},
@@ -29,9 +31,41 @@ const links = [
 
  
 const Home = () => {
+  const [user, loading] = useAuthState(auth);
   const navigate = useNavigate();
   const [reload, setReload] = useState(0) // Used to reload the page when you remove item from Your Menu
 
+  const [savedMenus, setSavedMenus] = useState(null);
+
+  const getSavedMenus = () => {
+    console.log(auth);
+    if(!auth || !auth.currentUser){
+      console.log("no login")
+      return;
+    }
+    fetch(`${firebaseConfig.databaseURL + "/" + auth.currentUser.uid}/menus.json`)
+      .then((res) => {
+        console.log(res);
+        if (res.status !== 200) {
+          console.log(res.statusText);
+          // throw new Error(res.statusText);
+        } else {
+          return res.json();
+        }
+      })
+      .then((res) => {
+        if (res) {
+          console.log("getData res", res);
+          setSavedMenus(res);
+        }
+      });
+  }
+
+  useEffect(() => {
+    if (loading) return;
+    if (!user) return navigate("/");
+    getSavedMenus();
+  }, [user, loading, navigate]);
   return (
     <div className="w-screen h-auto md:p-8 p-4 flex flex-col items-center mb-24">
       <div className="md:w-2/3 w-full flex flex-col items-center space-y-12">
@@ -75,6 +109,10 @@ const Home = () => {
         
         <div className="w-full">
           <div className="text-2xl font-bold mb-4">Saved Menus</div>
+          {savedMenus && Object.keys(savedMenus).map((menu, i) => {
+            console.log(menu)
+            return <div className='p-2 text-xl border-gray-300 border-2 rounded-lg mb-2' key = {i}>{savedMenus[menu].name}</div>
+          })}
         </div>
       
         
