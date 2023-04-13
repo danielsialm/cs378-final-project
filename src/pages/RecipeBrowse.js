@@ -31,19 +31,23 @@ const RecipeBrowse = ({ pageName }) => {
     else if (pageName === "Recent Recipes")
       setRecipes(recentRecipes.results);
     else if (pageName === "Saved Recipes") {
-      axios
-      .get(
-        `${
-          firebaseConfig.databaseURL + "/" + auth.currentUser.uid
-        }/recipes.json`,
-        {
-          method: "GET",
-        }
-      ).then((res) => {
-        if (res.data) {
-          setRecipes(Object.values(res.data))
-        }
-      })
+      if(auth && auth.currentUser) {
+        axios
+        .get(
+          `${
+            firebaseConfig.databaseURL + "/" + auth.currentUser.uid
+          }/recipes.json`,
+          {
+            method: "GET",
+          }
+        ).then((res) => {
+          if (res.data) {
+            setRecipes(Object.values(res.data))
+          }
+        })
+      }else {
+        alert("Please login to save recipes.");
+      }
     }
       
   }, []);

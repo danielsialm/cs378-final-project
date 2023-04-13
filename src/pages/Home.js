@@ -20,16 +20,8 @@ import "./Home.css"
 import { firebaseConfig, auth } from "./firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 
-const links = [
-  {icon: Award, text: "Trending Recipes", link:"/trendingrecipes"},
-  {icon: Clock, text: "Recent Recipes", link:"/recentrecipes"},
-  {icon: Bookmark, text: "Saved Recipes", link:"/savedrecipes"},
-  {icon: Edit, text: "My Recipes", link:"/myrecipes"}
-]
 
 
-
- 
 const Home = () => {
   const [user, loading] = useAuthState(auth);
   const navigate = useNavigate();
@@ -61,10 +53,19 @@ const Home = () => {
       });
   }
 
+  let links = [
+    {icon: Award, text: "Trending Recipes", link:"/trendingrecipes"},
+    {icon: Clock, text: "Recent Recipes", link:"/recentrecipes"},
+    {icon: Bookmark, text: "Saved Recipes", link:"/savedrecipes"},
+    {icon: Edit, text: "My Recipes", link:"/myrecipes"}
+  ];
+
+
   useEffect(() => {
     if (loading) return;
-    if (!user) return navigate("/");
-    getSavedMenus();
+    if (user) {
+      getSavedMenus();
+    }
   }, [user, loading, navigate]);
   return (
     <div className="w-screen h-auto md:p-8 p-4 flex flex-col items-center mb-24">

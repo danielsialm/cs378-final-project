@@ -1,16 +1,22 @@
 .login {
-    height: 100vh;
+    height: 50vh;
     width: 100vw;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: center; 
+    z-index: 1000;
   }
   .login__container {
     display: flex;
     flex-direction: column;
     text-align: center;
     background-color: #dcdcdc;
-    padding: 30px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 30px;
+    padding-top: 50px;
+    z-index: inherit; 
+
   }
   .login__textBox {
     padding: 10px;
@@ -28,3 +34,25 @@
   .login div {
     margin-top: 7px;
   }
+
+  .logo_container {
+    height: 25vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 35px;
+    margin-bottom: 2em;
+  }
+  .logo-img {
+    display: inline-block;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 8em;
+    object-fit: cover;
+    height: 8em;
+    z-index: 1;
+  }
+
+

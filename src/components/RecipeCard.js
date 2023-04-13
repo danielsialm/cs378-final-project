@@ -22,7 +22,7 @@ const RecipeCard = ({ title, id, image }) => {
   const [savedRecipes, setSavedRecipes] = useState([]);
 
   useEffect(() => {
-    if (auth) {
+    if (auth && auth.currentUser) {
       console.log("running")
       axios
         .get(
@@ -57,8 +57,10 @@ const RecipeCard = ({ title, id, image }) => {
 
   const handleSave = (e) => {
 
-    if (!auth) {
+    if (!auth || !auth.currentUser) {
+      e.stopPropagation();
       alert("Please login to save recipes!");
+      return;
     } else {
       let index = savedRecipes.findIndex((recipe) => {
         return recipe.id === id;
