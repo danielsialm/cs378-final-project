@@ -2,7 +2,9 @@ import { useState, useEffect } from "react";
 import Header from "../components/Header";
 import RecipesList from "../components/RecipesList";
 import "./RecipeBrowse.css";
-import { firebaseConfig, auth } from "../pages/firebase";
+import axios from "axios";
+import { firebaseConfig, auth } from "./firebase";
+
 
 import recentRecipes from "../data/recent"
 import popularRecipes from "../data/popular";
@@ -23,27 +25,27 @@ const RecipeBrowse = ({ pageName }) => {
 
   // local
   useEffect(() => {
+    console.log(pageName)
     if (pageName === "Trending Recipes")
       setRecipes(popularRecipes.results);
     else if (pageName === "Recent Recipes")
       setRecipes(recentRecipes.results);
-    else if (pageName === "Saved Recipes"){
-      if (!auth || !auth.currentUser) {
-        alert("Please login to have saved recipes");
-        return;
-      }
-      fetch(`${firebaseConfig.databaseURL + "/" + auth.currentUser.uid}/recipes.json`).then((res) => {
-        if (res.status !== 200) {
-          console.log(res.statusText);
-          return <div>Nothing to see here...</div>;
-          // throw new Error(res.statusText);
-        } else {
-          console.log("success");
-          console.log(res);
-          setRecipes(res);
+    else if (pageName === "Saved Recipes") {
+      axios
+      .get(
+        `${
+          firebaseConfig.databaseURL + "/" + auth.currentUser.uid
+        }/recipes.json`,
+        {
+          method: "GET",
         }
-      });
+      ).then((res) => {
+        if (res.data) {
+          setRecipes(Object.values(res.data))
+        }
+      })
     }
+      
   }, []);
 
   return (
