@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Header from "../components/Header";
 import RecipesList from "../components/RecipesList";
 import "./RecipeBrowse.css";
+import { firebaseConfig, auth } from "../pages/firebase";
 
 import recentRecipes from "../data/recent"
 import popularRecipes from "../data/popular";
@@ -26,6 +27,23 @@ const RecipeBrowse = ({ pageName }) => {
       setRecipes(popularRecipes.results);
     else if (pageName === "Recent Recipes")
       setRecipes(recentRecipes.results);
+    else if (pageName === "Saved Recipes"){
+      if (!auth || !auth.currentUser) {
+        alert("Please login to have saved recipes");
+        return;
+      }
+      fetch(`${firebaseConfig.databaseURL + "/" + auth.currentUser.uid}/recipes.json`).then((res) => {
+        if (res.status !== 200) {
+          console.log(res.statusText);
+          return <div>Nothing to see here...</div>;
+          // throw new Error(res.statusText);
+        } else {
+          console.log("success");
+          console.log(res);
+          setRecipes(res);
+        }
+      });
+    }
   }, []);
 
   return (

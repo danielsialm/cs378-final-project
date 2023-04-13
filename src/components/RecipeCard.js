@@ -4,6 +4,8 @@ import plus from "../assets/plus.svg";
 import check from "../assets/check.svg";
 import { useNavigate } from "react-router";
 import {ReactComponent as Bookmark} from "../assets/bookmark.svg"
+import { firebaseConfig, auth } from "../pages/firebase";
+
 
 const RecipeCard = ({ title, id, image }) => {
   const navigate = useNavigate();
@@ -26,10 +28,26 @@ const RecipeCard = ({ title, id, image }) => {
 
   const handleSave = (e) => {
 
-    // TODO: add code to save recipes to database
-
-    setSaved(!save)
     e.stopPropagation();
+    if (!auth || !auth.currentUser) {
+      setSaved(false)
+      alert("Please login to save recipes");
+      return;
+    }
+    setSaved(!save)
+    console.log(currentItem);
+    return fetch(`${firebaseConfig.databaseURL + "/" + auth.currentUser.uid}/recipes.json`, {
+      method: "POST",
+      body: JSON.stringify(currentItem)
+    }).then((res) => {
+      if (res.status !== 200) {
+        console.log(res.statusText);
+        // throw new Error(res.statusText);
+      } else {
+        console.log("success");
+        return;
+      }
+    });
   }
 
   useEffect(() => {
