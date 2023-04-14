@@ -25,6 +25,7 @@ const Menu = () => {
 
   const [menuTitle, setMenuTitle] = useState("");
   const [recipes, setRecipes] = useState(Object.values(JSON.parse(window.localStorage.getItem("items"))));
+  const [save, setSaved] = useState(false);
 
   const [open, setOpen] = React.useState(false);
 
@@ -42,6 +43,7 @@ const Menu = () => {
       alert("Please login to save your menu");
       return;
     }
+    setSaved(!save);
     console.log(recipes);
     let send = {name: menuTitle, items: recipes};
     setMenuTitle("");
@@ -61,7 +63,9 @@ const Menu = () => {
 
   return (
     <div>
-      <Header back='/home' Right= {Bookmark} rightOnClick = {handleClickOpen}/>
+      <Header back='/home' Right= {Bookmark} rightOnClick = {handleClickOpen}  rightStyle= {`w-8 h-8 ${
+              save ? "fill-[#FEE135]" : ""
+            } stroke-[#FEE135]`}/>
       <div className="your-menu-wrapper">
         
         <div className="your-menu-title-wrapper">

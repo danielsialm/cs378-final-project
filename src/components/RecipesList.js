@@ -5,8 +5,6 @@ import RecipeCard from './RecipeCard';
 function RecipesList({ recipes }) {
 
   if (recipes) {
-    console.log('testing if i can see the db response??');
-    console.log(recipes);
 
     return (
       recipes.map(item =>
