@@ -98,7 +98,7 @@ const Home = () => {
             // </div>
               <YourMenuItem id={item.id} title={item.title} key={item.id} setReload={setReload} reload={setReload}/>
             )}
-            <Button variant="contained" className="home-button" fullWidth onClick={() => {navigate("/menu")}}>
+            <Button variant="contained" className="home-button" onClick={() => {navigate("/menu")}}>
               View menu
             </Button>
           </>: 
