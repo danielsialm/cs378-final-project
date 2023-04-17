@@ -59,9 +59,9 @@ const RecipeBrowse = ({ pageName }) => {
       <div className="recipe-browse-wrapper">
         <div className="recipe-browse-title-wrapper">
           <h1>{pageName}</h1>
-          <div className="recipe-browse-filter">
+          {/* <div className="recipe-browse-filter">
             <img src={require("../assets/filter.png")} />
-          </div>
+          </div> */}
         </div>
         <RecipesList recipes={recipes} />
       </div>

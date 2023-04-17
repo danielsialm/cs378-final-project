@@ -24,7 +24,7 @@ const YourMenuItem = ({id, title, reload, setReload}) => {
 
   return (
     <div
-      className="w-full py-4 border-gray-100 shadow border-2 mb-4 rounded-lg px-2 flex justify-between items-center"
+      className="w-full py-4 mb-4 rounded-lg px-2 flex justify-between items-center shadow-0"
       onClick={() => navigate("/recipe/" + id)}
     >
       <h4 className="text-lg flex-wrap w-11/12">{title}</h4>
