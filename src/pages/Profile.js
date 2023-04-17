@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "../components/Header";
-import { useEffect } from 'react';
+import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import { Button } from "@mui/material";
 import "./Profile.css";
@@ -10,7 +10,6 @@ import { useAuthState } from "react-firebase-hooks/auth";
 const Profile = () => {
   const [user, loading] = useAuthState(auth);
   const navigate = useNavigate();
-
 
   const database = "https://cookyourway-hci-default-rtdb.firebaseio.com/";
 
@@ -27,10 +26,10 @@ const Profile = () => {
       })
       .then((res) => {
         if (res) {
-            //should set data here somewhere
+          //should set data here somewhere
         }
       });
-    };
+  };
 
   useEffect(() => {
     if (loading) return;
@@ -38,28 +37,28 @@ const Profile = () => {
     getData();
   }, [user, loading, navigate]);
 
-
-
   return (
-    <div className="space-y-4 mx-8">
+    <>
       <Header back="/home" />
-      <div>
-        <h1 className="text-4xl font-bold mb-8">Your Profile</h1>
-      </div>
-      <div>
-        <h2 className="text-2xl font-bold text-gray-700 mb-4">
-          Your Email: {user?.email}
-        </h2>
-      </div>
+      <div className="space-y-4 mx-8">
+        <div>
+          <h1 className="text-4xl font-bold mb-8">Your Profile</h1>
+        </div>
+        <div>
+          <h2 className="text-2xl font-bold text-gray-700 mb-4">
+            Your Email: {user?.email}
+          </h2>
+        </div>
 
-      <Button
-        onClick={logout}
-        className="logout-button"
-        fullWidth
-        variant="contained">
-        Logout
-      </Button>
-    </div>
+        <Button
+          onClick={logout}
+          className="logout-button"
+          fullWidth
+          variant="contained">
+          Logout
+        </Button>
+      </div>
+    </>
   );
 };
 
