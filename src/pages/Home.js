@@ -99,7 +99,7 @@ const Home = () => {
           {/* <Options className="w-10 h-10 text-gray-600 ml-4"></Options> */}
         </div>
 
-        <div className="w-full rounded-lg bg-[#caffbf] px-4 py-4">
+        <div className="w-full rounded-lg bg-gray-200 px-4 py-4">
           <h1 className="text-2xl font-bold mb-4 text-">Browse Recipes</h1>
           <div className="w-full flex flex-row flex-wrap">
             {links.map((link, i) => {
@@ -122,7 +122,7 @@ const Home = () => {
 
 
             <div
-              className="rounded-full bg-pink-200 p-3"
+              className="rounded-full border-2 border-gray-100 p-3"
               onClick={() => {
                 navigate("/menu");
               }}>
@@ -167,7 +167,7 @@ const Home = () => {
           )}
         </div>
 
-        <div className="w-full rounded-lg bg-red-100 px-4 py-4">
+        <div className="w-full rounded-lg bg-gray-200 px-4 py-4">
           <div className="text-2xl font-bold mb-4">Saved Menus</div>
           {savedMenus &&
             Object.keys(savedMenus).map((menu, i) => {
