@@ -20,14 +20,14 @@ const Schedule = () => {
   
   useEffect(() => {
     const scheduleItems = JSON.parse(window.localStorage.getItem("items"));
-    setIngredients([]);
-    setEquipment([]);
-    setStepsFin([]);
 
+
+    var ingredientList = [];
+    var equipmentList = [];
     scheduleItems.forEach((element) => {
       const recipeInfo = JSON.parse(window.localStorage.getItem(element.id));
-      setIngredients([...ingredients_all, ...recipeInfo.ingredients]);
-      setEquipment([...equipment_all, ...recipeInfo.equipment]);
+      ingredientList = ingredientList.concat(recipeInfo.ingredients);
+      equipmentList = equipmentList.concat(recipeInfo.equipment);
 
       var steps = []
       recipeInfo.stepsLong.forEach((step) => {
@@ -39,6 +39,9 @@ const Schedule = () => {
         }
         steps.push(step_info);
       });
+
+      setIngredients(ingredientList);
+      setEquipment(equipmentList);
       setStepsFin(steps);
     });
   }, []);
@@ -57,7 +60,7 @@ const Schedule = () => {
         </div>
         <div>
           <h2 className="text-2xl font-bold text-gray-700 mb-4">
-            Ingredients and Equipment:
+            Ingredients:
           </h2>
           <div className="flex flex-col w-full ">
             {ingredients_all &&
