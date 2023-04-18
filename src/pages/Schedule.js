@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Header from "../components/Header";
 import { useNavigate } from "react-router";
 import { Button } from "@mui/material";
@@ -54,51 +53,51 @@ const Schedule = () => {
     },
   ];
   
-  useEffect(() => {
-    const scheduleItems = JSON.parse(window.localStorage.getItem("items"));
-    console.log(scheduleItems);
-    var ingredientList = [];
-    var equipmentList = [];
-    var steps = [];
-    var time = 0;
-    scheduleItems.forEach((element) => {
-      console.log('what is the element?');
-      console.log(element);
-      const recipeInfo = JSON.parse(window.localStorage.getItem(element.id));
-      ingredientList = ingredientList.concat(recipeInfo.ingredients);
-      equipmentList = equipmentList.concat(recipeInfo.equipment);
-      var cookTime = parseInt(recipeInfo.time);
-      var estimatedTime = cookTime * .9;
-      time += estimatedTime;
+  // useEffect(() => {
+  //   const scheduleItems = JSON.parse(window.localStorage.getItem("items"));
+  //   console.log(scheduleItems);
+  //   var ingredientList = [];
+  //   var equipmentList = [];
+  //   var steps = [];
+  //   var time = 0;
+  //   scheduleItems.forEach((element) => {
+  //     console.log('what is the element?');
+  //     console.log(element);
+  //     const recipeInfo = JSON.parse(window.localStorage.getItem(element.id));
+  //     ingredientList = ingredientList.concat(recipeInfo.ingredients);
+  //     equipmentList = equipmentList.concat(recipeInfo.equipment);
+  //     var cookTime = parseInt(recipeInfo.time);
+  //     var estimatedTime = cookTime * .9;
+  //     time += estimatedTime;
 
-  const Ingredients = [
-    { num: "1 tbsp", name: "Olive Oil" },
-    { num: "10 oz", name: "Ribeye Steak" },
-    { num: "2 pinches", name: "Salt" },
-  ];
+  // const Ingredients = [
+  //   { num: "1 tbsp", name: "Olive Oil" },
+  //   { num: "10 oz", name: "Ribeye Steak" },
+  //   { num: "2 pinches", name: "Salt" },
+  // ];
 
-  const equipment = [
-    { num: "1", name: "pan" },
-    { num: "1", name: "stove" },
-    { num: "1", name: "oven" },
-  ];
-      recipeInfo.stepsLong.forEach((step) => {
-        const step_info = {
-          stepDetail: step.step, 
-          recipe_id: element.id,
-          ingredient: step.ingredients.map((item) => item.name),
-          equipment: step.equipment.map((item) => item.name)
-        }
-        steps.push(step_info);
-      });
+  // const equipment = [
+  //   { num: "1", name: "pan" },
+  //   { num: "1", name: "stove" },
+  //   { num: "1", name: "oven" },
+  // ];
+  //     recipeInfo.stepsLong.forEach((step) => {
+  //       const step_info = {
+  //         stepDetail: step.step, 
+  //         recipe_id: element.id,
+  //         ingredient: step.ingredients.map((item) => item.name),
+  //         equipment: step.equipment.map((item) => item.name)
+  //       }
+  //       steps.push(step_info);
+  //     });
 
-      setIngredients(ingredientList);
-      setEquipment(equipmentList);
-      setStepsFin(steps);
-      setTime(time);
+  //     setIngredients(ingredientList);
+  //     setEquipment(equipmentList);
+  //     setStepsFin(steps);
+  //     setTime(time);
 
-    });
-  }, []);
+  //   });
+  // }, []);
 
   const handleFinish = () => {
     window.localStorage.setItem("items", JSON.stringify([]));
@@ -115,13 +114,13 @@ const Schedule = () => {
         </div>
         
         <div>
-          <ScheduleDropList title={"Ingredients"} data={Ingredients} />
-          <ScheduleDropList title={"Equipment"} data={equipment} />
+          <ScheduleDropList title={"Ingredients"} data={ingredients_all} />
+          <ScheduleDropList title={"Equipment"} data={equipment_all} />
         </div>
 
         <div className="w-full">
           <ScheduleCarousel steps={steps}/>
-          <h2 className="text-2xl font-bold text-gray-700 mb-4">
+          {/* <h2 className="text-2xl font-bold text-gray-700 mb-4">
               Estimated Time: {time_all} minutes
           </h2>
           <h2 className="text-2xl font-bold text-gray-700 mb-4">
@@ -141,7 +140,7 @@ const Schedule = () => {
                 {item}
               </li>
             ))}
-          </div>
+          </div> */}
         </div>
 
         {/* Old design */}
