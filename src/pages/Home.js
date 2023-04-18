@@ -79,7 +79,7 @@ const Home = () => {
     <div className="h-auto md:p-8 py-4 mt-4 mx-6 flex flex-col items-center mb-24">
       <div className="md:w-2/3 w-full flex flex-col items-center space-y-7">
         <div className="w-full flex justify-between items-center">
-          <div className="md:text-5xl text-3xl font-bold">Good Afternoon</div>
+          <div className="md:text-5xl text-3xl font-bold">Cook Your Way</div>
           <div className="w-12 h-12 rounded-full border-2 border-gray-100 flex items-center justify-center">
             <User
               onClick={() => {
