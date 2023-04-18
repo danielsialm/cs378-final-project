@@ -1,24 +1,63 @@
-import React from "react";
+import { useState } from "react";
 import Header from "../components/Header";
 import { useNavigate } from "react-router";
 import { Button } from "@mui/material";
+import ScheduleDropList from "../components/ScheduleDropList";
+import Carousel from "nuka-carousel";
+
+import { ReactComponent as ArrowRight } from "../assets/arrow-right.svg";
+import { ReactComponent as ArrowLeft } from "../assets/arrow-left.svg";
 import "./Schedule.css";
+import ScheduleCarousel from "./ScheduleCarousel";
 
 const Schedule = () => {
   const navigate = useNavigate();
 
   const steps = [
-    "Heat pan on stove",
-    "Put oil in pan while heating",
-    "Cook for 3 minutes",
-    "Flip and cook for an additional 3 minutes",
+    {
+      instruction: "Heat pan on stove",
+      ingredients: [],
+      equipment: [
+        { num: "1", name: "pan" },
+        { num: "1", name: "stove" },
+      ],
+    },
+    {
+      instruction: "Put oil in pan while heating",
+      ingredients: [{ num: "1 tbsp", name: "Olive Oil" }],
+      equipment: [
+        { num: "1", name: "pan" },
+        { num: "1", name: "stove" },
+      ],
+    },
+    {
+      instruction: "Cook for 3 minutes",
+      ingredients: [{ num: "1", name: "Ribeye Steak" }],
+      equipment: [
+        { num: "1", name: "pan" },
+        { num: "1", name: "stove" },
+      ],
+    },
+    {
+      instruction: "Flip and cook for an additional 3 minutes",
+      ingredients: [{ num: "1", name: "Ribeye Steak" }],
+      equipment: [
+        { num: "1", name: "pan" },
+        { num: "1", name: "stove" },
+      ],
+    },
   ];
 
   const Ingredients = [
     { num: "1 tbsp", name: "Olive Oil" },
     { num: "10 oz", name: "Ribeye Steak" },
     { num: "2 pinches", name: "Salt" },
-    { num: "1", name: "Stove" },
+  ];
+
+  const equipment = [
+    { num: "1", name: "pan" },
+    { num: "1", name: "stove" },
+    { num: "1", name: "oven" },
   ];
 
   const handleFinish = () => {
@@ -30,27 +69,21 @@ const Schedule = () => {
     <>
       <Header back="/menu" />
       <div className="space-y-4 mx-8">
-        <div>
-          <h1 className="text-4xl font-bold mb-8">Your Cooking Schedule</h1>
+        <div className="mb-8">
+          <h1 className="text-4xl font-bold mb-3">Your Schedule</h1>
+          <h2 className="text-xl font-semibold">Estimated Time: 1 hour</h2>
         </div>
         <div>
-          <h2 className="text-2xl font-bold text-gray-700 mb-4">
-            Ingredients and Equipment:
-          </h2>
-          <div className="flex flex-col w-full ">
-            {Ingredients &&
-              Ingredients.map((ingredient, i) => {
-                return (
-                  <div className="w-full flex flex-row text-lg">
-                    <div className="mr-2">{ingredient.num}</div>
-                    <div>{ingredient.name}</div>
-                  </div>
-                );
-              })}
-          </div>
+          <ScheduleDropList title={"Ingredients"} data={Ingredients} />
+          <ScheduleDropList title={"Equipment"} data={equipment} />
         </div>
 
-        <div className="w-full flex flex-col">
+        <div className="w-full">
+          <ScheduleCarousel steps={steps}/>
+        </div>
+
+        {/* Old design */}
+        {/* <div className="w-full flex flex-col">
           <h2 className="text-2xl font-bold text-gray-700 mb-4">Steps:</h2>
           {steps &&
             steps.map((step, i) => {
@@ -70,7 +103,7 @@ const Schedule = () => {
                 </div>
               );
             })}
-        </div>
+        </div> */}
         <Button
           onClick={handleFinish}
           className="schedule-finish-button"
