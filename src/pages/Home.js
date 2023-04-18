@@ -67,12 +67,20 @@ const Home = () => {
       getSavedMenus();
     }
   }, [user, loading, navigate]);
+
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      console.log("search")
+      navigate(`/search/${event.target.value}`);
+    }
+  };
+
   return (
     <div className="h-auto md:p-8 py-4 mt-4 mx-6 flex flex-col items-center mb-24">
       <div className="md:w-2/3 w-full flex flex-col items-center space-y-7">
         <div className="w-full flex justify-between items-center">
           <div className="md:text-5xl text-3xl font-bold">Good Afternoon</div>
-          <div className="w-12 h-12 rounded-full border-2 border-gray-100  flex items-center justify-center bg-gray-100">
+          <div className="w-12 h-12 rounded-full border-2 border-gray-100 flex items-center justify-center">
             <User
               onClick={() => {
                 navigate("/profile");
@@ -84,7 +92,10 @@ const Home = () => {
           <input
             type="text"
             className="active:border-none md:text-2xl text-xl outline-none grow min-w-0 bg-gray-50"
-            placeholder="Search Recipes"></input>
+            placeholder="Search Recipes"
+            onKeyDown={handleKeyDown}
+          >
+          </input>
           {/* <Options className="w-10 h-10 text-gray-600 ml-4"></Options> */}
         </div>
 
