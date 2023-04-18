@@ -1,0 +1,26 @@
+
+.slider-control-bottomcenter {
+    width: 95%;
+}
+.slider-control-bottomcenter button{
+    background: black !important;
+    border-radius: 50%;
+  }
+  
+  .slider-control-bottomcenter ul{
+
+    display: flex;
+    align-items: stretch; /* Default */
+    justify-content: space-between;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    
+   }
+
+   .slider-control-bottomcenter li{
+
+    display: block;
+    flex: 0 1 auto; /* Default */
+    list-style-type: none;    
+   }

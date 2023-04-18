@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Header from "../components/Header";
 import { useNavigate } from "react-router";
 import { Button } from "@mui/material";
@@ -19,40 +18,40 @@ const Schedule = () => {
   const [steps_fin, setStepsFin] = useState([]);
   const [time_all, setTime] = useState(0);
 
-  const steps = [
-    {
-      instruction: "Heat pan on stove",
-      ingredients: [],
-      equipment: [
-        { num: "1", name: "pan" },
-        { num: "1", name: "stove" },
-      ],
-    },
-    {
-      instruction: "Put oil in pan while heating",
-      ingredients: [{ num: "1 tbsp", name: "Olive Oil" }],
-      equipment: [
-        { num: "1", name: "pan" },
-        { num: "1", name: "stove" },
-      ],
-    },
-    {
-      instruction: "Cook for 3 minutes",
-      ingredients: [{ num: "1", name: "Ribeye Steak" }],
-      equipment: [
-        { num: "1", name: "pan" },
-        { num: "1", name: "stove" },
-      ],
-    },
-    {
-      instruction: "Flip and cook for an additional 3 minutes",
-      ingredients: [{ num: "1", name: "Ribeye Steak" }],
-      equipment: [
-        { num: "1", name: "pan" },
-        { num: "1", name: "stove" },
-      ],
-    },
-  ];
+  // const steps = [
+  //   {
+  //     instruction: "Heat pan on stove",
+  //     ingredients: [],
+  //     equipment: [
+  //       { num: "1", name: "pan" },
+  //       { num: "1", name: "stove" },
+  //     ],
+  //   },
+  //   {
+  //     instruction: "Put oil in pan while heating",
+  //     ingredients: [{ num: "1 tbsp", name: "Olive Oil" }],
+  //     equipment: [
+  //       { num: "1", name: "pan" },
+  //       { num: "1", name: "stove" },
+  //     ],
+  //   },
+  //   {
+  //     instruction: "Cook for 3 minutes",
+  //     ingredients: [{ num: "1", name: "Ribeye Steak" }],
+  //     equipment: [
+  //       { num: "1", name: "pan" },
+  //       { num: "1", name: "stove" },
+  //     ],
+  //   },
+  //   {
+  //     instruction: "Flip and cook for an additional 3 minutes",
+  //     ingredients: [{ num: "1", name: "Ribeye Steak" }],
+  //     equipment: [
+  //       { num: "1", name: "pan" },
+  //       { num: "1", name: "stove" },
+  //     ],
+  //   },
+  // ];
   
   useEffect(() => {
     const scheduleItems = JSON.parse(window.localStorage.getItem("items"));
@@ -71,17 +70,6 @@ const Schedule = () => {
       var estimatedTime = cookTime * .9;
       time += estimatedTime;
 
-  const Ingredients = [
-    { num: "1 tbsp", name: "Olive Oil" },
-    { num: "10 oz", name: "Ribeye Steak" },
-    { num: "2 pinches", name: "Salt" },
-  ];
-
-  const equipment = [
-    { num: "1", name: "pan" },
-    { num: "1", name: "stove" },
-    { num: "1", name: "oven" },
-  ];
       recipeInfo.stepsLong.forEach((step) => {
         const step_info = {
           stepDetail: step.step, 
@@ -111,37 +99,16 @@ const Schedule = () => {
       <div className="space-y-4 mx-8">
         <div className="mb-8">
           <h1 className="text-4xl font-bold mb-3">Your Schedule</h1>
-          <h2 className="text-xl font-semibold">Estimated Time: 1 hour</h2>
+          <h2 className="text-xl font-semibold">Estimated Time: {time_all} minutes</h2>
         </div>
         
         <div>
-          <ScheduleDropList title={"Ingredients"} data={Ingredients} />
-          <ScheduleDropList title={"Equipment"} data={equipment} />
+          <ScheduleDropList title={"Ingredients"} data={ingredients_all} />
+          <ScheduleDropList title={"Equipment"} data={equipment_all} />
         </div>
 
         <div className="w-full">
-          <ScheduleCarousel steps={steps}/>
-          <h2 className="text-2xl font-bold text-gray-700 mb-4">
-              Estimated Time: {time_all} minutes
-          </h2>
-          <h2 className="text-2xl font-bold text-gray-700 mb-4">
-            Ingredients:
-          </h2>
-          <div className="flex flex-col w-full text-base text-gray-700 p-0.5 ps-4">
-            {ingredients_all.map((item) => (
-              <li className="text-base text-gray-700" key={item}>
-                {item}
-              </li>
-            ))}
-          </div>
-          <h2 className="text-2xl font-bold text-gray-700 my-4">Equipment:</h2>
-          <div className="flex flex-col w-full text-base text-gray-700 p-0.5 ps-4">
-            {equipment_all.map((item) => (
-              <li className="text-base text-gray-700" key={item}>
-                {item}
-              </li>
-            ))}
-          </div>
+          <ScheduleCarousel steps={steps_fin}/>
         </div>
 
         {/* Old design */}
@@ -154,7 +121,7 @@ const Schedule = () => {
                   <div
                     className={`bg-blue-400 w-4 h-auto mr-4 flex flex-row items-center 
               ${i === 0 ? "rounded-t-full" : ""} ${
-                      i === steps.length - 1 ? "rounded-b-full" : ""
+                      i === steps_fin.length - 1 ? "rounded-b-full" : ""
                     }
             `}>
                     <div className="w-4 h-4 bg-gray-100 rounded-full"></div>
