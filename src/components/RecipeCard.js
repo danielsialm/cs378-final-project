@@ -42,7 +42,7 @@ const RecipeCard = ({ title, id, image }) => {
             // having to make an api call each time, we will save the recipes
             // Probably don't need to save recipes. Can just do a get request 
             // each time you click on save. In fact, that's probably better tbh
-            setSaved(recipes.some((recipe) => recipe.id === id));
+            setSaved(recipes.some((recipe) => parseInt(recipe.id) === parseInt(id)));
             setSavedRecipes(recipes);
           }
         });

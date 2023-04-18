@@ -33,7 +33,6 @@ const Recipe = () => {
 
     let index = items.findIndex((item) => item.id === id);
 
-    console.log(index);
     let newArray = [...items];
     if (index === -1) {
       alert("Added recipe to your menu!");
@@ -42,7 +41,6 @@ const Recipe = () => {
       alert("Recipe is already part of your menu!");
     }
 
-    console.log(newArray);
     window.localStorage.setItem("items", JSON.stringify(newArray));
   };
 
@@ -56,12 +54,8 @@ const Recipe = () => {
         return recipe.id === id;
       });
 
-      console.log(index);
-
       // Recipe not saved yet
       if (index === -1) {
-        console.log({ savedRecipes });
-        console.log(currentItem);
         axios
           .post(
             `${
@@ -114,7 +108,6 @@ const Recipe = () => {
         fetch(src)
         .then(response => response.json())
         .then((recipeData) => {
-          console.log(recipeData);
           setName(recipeData["title"]);
           setServings(recipeData["servings"]);
           setTime(recipeData["readyInMinutes"]);
@@ -145,7 +138,6 @@ const Recipe = () => {
         .catch(error => console.log(error));
       } else {
         const recipeInfo = JSON.parse(window.localStorage.getItem(id));
-        console.log(recipeInfo);
         setName(recipeInfo["name"]);
         setServings(recipeInfo["servings"]);
         setTime(recipeInfo["time"]);
@@ -157,7 +149,6 @@ const Recipe = () => {
 
       //saving the recipe
       if (auth && auth.currentUser) {
-        console.log("running");
         axios
           .get(
             `${
@@ -176,13 +167,11 @@ const Recipe = () => {
               // having to make an api call each time, we will save the recipes
               // Probably don't need to save recipes. Can just do a get request
               // each time you click on save. In fact, that's probably better tbh
-              setSaved(recipes.some((recipe) => recipe.id === id));
+              setSaved(recipes.some((recipe) => parseInt(recipe.id) === parseInt(id)));
               setSavedRecipes(recipes);
             }
           });
       }
-
-      console.log(name);
     }, []);
 
   return (
