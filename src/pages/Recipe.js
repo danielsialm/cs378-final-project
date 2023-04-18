@@ -108,70 +108,90 @@ const Recipe = () => {
     e.stopPropagation();
   };
 
-  // src = 'http://api.spoonacular.com/recipes/{id}/information?apiKey=09a121a6694d4d7e8473e2226fefe82f';
-  // useEffect(() => {
-  //   fetch(src)
-  //     .then(response => response.json())
-  //     .then((data) => {
-  //       setName(data["title"]);
-  //     })
-  //     .catch(error => console.log(error));
-  // }, []);
+    useEffect(() => {
+      if(!window.localStorage.getItem(id)) {
+        const src = `https://api.spoonacular.com/recipes/${id}/information?apiKey=940c7c2ad4974226862d5c390f8a11a1`;
+        fetch(src)
+        .then(response => response.json())
+        .then((recipeData) => {
+          console.log(recipeData);
+          setName(recipeData["title"]);
+          setServings(recipeData["servings"]);
+          setTime(recipeData["readyInMinutes"]);
+          setImage(recipeData["image"]);
 
-  // local
-  useEffect(() => {
-    setName(recipeData["title"]);
-    setServings(recipeData["servings"]);
-    setTime(recipeData["readyInMinutes"]);
-    setImage(recipeData["image"]);
+          const ingredientList = recipeData["extendedIngredients"].map((item) => item.original);
+          setIngredients(ingredientList);
+          const stepList = recipeData["analyzedInstructions"][0]["steps"].map((item) => item.step);
+          setSteps(stepList);
+          const equipmentSet = new Set();
+          recipeData["analyzedInstructions"][0]["steps"].forEach((element) => {
+            element.equipment.forEach((item) => equipmentSet.add(item.name));
+          });
+          const equipmentList = Array.from(equipmentSet)
+          setEquipment(equipmentList);
 
-    setIngredients(
-      recipeData["extendedIngredients"].map((item) => item.original)
-    );
-    setSteps(
-      recipeData["analyzedInstructions"][0]["steps"].map((item) => item.step)
-    );
-    const equipmentSet = new Set();
-    recipeData["analyzedInstructions"][0]["steps"].forEach((element) => {
-      element.equipment.forEach((item) => equipmentSet.add(item.name));
-    });
-    setEquipment(Array.from(equipmentSet));
-
-    //saving the recipe
-    if (auth && auth.currentUser) {
-      console.log("running");
-      axios
-        .get(
-          `${
-            firebaseConfig.databaseURL + "/" + auth.currentUser.uid
-          }/recipes.json`,
-          {
-            method: "GET",
+          const recipeInfo = {
+            "name" : recipeData["title"],
+            "servings" : recipeData["servings"],
+            "time" : recipeData["readyInMinutes"],
+            "image" : recipeData["image"],
+            "ingredients" : ingredientList,
+            "equipment" : equipmentList,
+            "stepsLong" : recipeData["analyzedInstructions"][0]["steps"]
           }
-        )
-        .then((res) => {
-          if (res.data) {
-            let recipes = Object.values(res.data);
-            // console.log(recipes)
+          window.localStorage.setItem(id, JSON.stringify(recipeInfo));
+        })
+        .catch(error => console.log(error));
+      } else {
+        const recipeInfo = JSON.parse(window.localStorage.getItem(id));
+        console.log(recipeInfo);
+        setName(recipeInfo["name"]);
+        setServings(recipeInfo["servings"]);
+        setTime(recipeInfo["time"]);
+        setImage(recipeInfo["image"]);
+        setIngredients(recipeInfo["ingredients"]);
+        setEquipment(recipeInfo["equipment"]);
+        setSteps(recipeInfo["stepsLong"].map((item) => item.step));
+      }
 
-            // this useEffect doesn't run when state is altered. So to avoid
-            // having to make an api call each time, we will save the recipes
-            // Probably don't need to save recipes. Can just do a get request
-            // each time you click on save. In fact, that's probably better tbh
-            setSaved(recipes.some((recipe) => recipe.id === id));
-            setSavedRecipes(recipes);
-          }
-        });
-    }
-  }, []);
+      //saving the recipe
+      if (auth && auth.currentUser) {
+        console.log("running");
+        axios
+          .get(
+            `${
+              firebaseConfig.databaseURL + "/" + auth.currentUser.uid
+            }/recipes.json`,
+            {
+              method: "GET",
+            }
+          )
+          .then((res) => {
+            if (res.data) {
+              let recipes = Object.values(res.data);
+              // console.log(recipes)
+
+              // this useEffect doesn't run when state is altered. So to avoid
+              // having to make an api call each time, we will save the recipes
+              // Probably don't need to save recipes. Can just do a get request
+              // each time you click on save. In fact, that's probably better tbh
+              setSaved(recipes.some((recipe) => recipe.id === id));
+              setSavedRecipes(recipes);
+            }
+          });
+      }
+
+      console.log(name);
+    }, []);
 
   return (
     <>
       <Header
-        back={-1}
-        Right={Bookmark}
-        rightOnClick={handleSave}
-        rightStyle={`w-8 h-8 ${save ? "fill-[#FEE135]" : ""} stroke-[#FEE135]`}
+          back={-1}
+          Right={Bookmark}
+          rightOnClick={handleSave}
+          rightStyle={`w-8 h-8 ${save ? "fill-[#FEE135]" : ""} stroke-[#FEE135]`}
       />
       <div className="space-y-4 mx-8">
         <div>

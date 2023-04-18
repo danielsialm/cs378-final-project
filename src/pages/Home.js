@@ -29,7 +29,6 @@ const Home = () => {
   const [savedMenus, setSavedMenus] = useState(null);
 
   const getSavedMenus = () => {
-    console.log(auth);
     if (!auth || !auth.currentUser) {
       console.log("no login");
       return;
@@ -67,12 +66,20 @@ const Home = () => {
       getSavedMenus();
     }
   }, [user, loading, navigate]);
+
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      console.log("search")
+      navigate(`/search/${event.target.value}`);
+    }
+  };
+
   return (
     <div className="h-auto md:p-8 py-4 mt-4 mx-6 flex flex-col items-center mb-24">
       <div className="md:w-2/3 w-full flex flex-col items-center space-y-7">
-        <div className="w-full flex justify-between items-center">
-          <div className="md:text-5xl text-3xl font-bold">Good Afternoon</div>
-          <div className="w-12 h-12 rounded-full border-2 border-gray-100  flex items-center justify-center bg-gray-100">
+        <div className="w-full flex justify-between items-center rounded-lg pr-4 py-4">
+          <div className="md:text-5xl text-3xl font-bold">Cook Your Way</div>
+          <div className="w-12 h-12 rounded-full border-2 border-gray-100 flex items-center justify-center">
             <User
               onClick={() => {
                 navigate("/profile");
@@ -84,11 +91,14 @@ const Home = () => {
           <input
             type="text"
             className="active:border-none md:text-2xl text-xl outline-none grow min-w-0 bg-gray-50"
-            placeholder="Search Recipes"></input>
+            placeholder="Search Recipes"
+            onKeyDown={handleKeyDown}
+          >
+          </input>
           {/* <Options className="w-10 h-10 text-gray-600 ml-4"></Options> */}
         </div>
 
-        <div className="w-full rounded-lg bg-[#caffbf] px-4 py-4">
+        <div className="w-full rounded-lg bg-gray-200 px-4 py-4">
           <h1 className="text-2xl font-bold mb-4 text-">Browse Recipes</h1>
           <div className="w-full flex flex-row flex-wrap">
             {links.map((link, i) => {
@@ -103,7 +113,7 @@ const Home = () => {
             })}
           </div>
         </div>
-        <div className="w-full">
+        <div className="w-full rounded-lg px-4 py-4">
           <div className="flex justify-between items-center mb-4">
             <h1 className="text-2xl font-bold ">Your Menu</h1>
             {JSON.parse(window.localStorage.getItem("items")) &&
@@ -111,7 +121,7 @@ const Home = () => {
 
 
             <div
-              className="rounded-full bg-pink-200 p-3"
+              className="rounded-full border-2 border-gray-100 p-3"
               onClick={() => {
                 navigate("/menu");
               }}>
@@ -156,19 +166,61 @@ const Home = () => {
           )}
         </div>
 
-        <div className="w-full rounded-lg bg-red-100 px-4 py-4">
+        <div className="w-full rounded-lg bg-gray-200 px-4 py-4">
           <div className="text-2xl font-bold mb-4">Saved Menus</div>
           {savedMenus &&
             Object.keys(savedMenus).map((menu, i) => {
-              console.log(savedMenus[menu])
               return (
                 <div
                   className="rounded-lg mb-4 bg-white"
-                  key={i}>
+                  key={i}
+                  onClick={() => {
+                    window.localStorage.setItem("items", JSON.stringify([]));
+                    console.log('is this format weird?');
+                    console.log(savedMenus[menu].items);
+                    window.localStorage.setItem("items", JSON.stringify(savedMenus[menu].items));
+                    
+                    savedMenus[menu].items.forEach((currentItem) => {
+                      console.log('checking wehere we are at');
+                      console.log(currentItem);
+                      console.log(currentItem.id);
+                      // cache information if it doesn't exist already
+                      if(!window.localStorage.getItem(currentItem.id)) {
+                        let identifier = currentItem.id;
+                        const src = `https://api.spoonacular.com/recipes/${identifier}/information?apiKey=940c7c2ad4974226862d5c390f8a11a1`;
+                        fetch(src)
+                        .then(response => response.json())
+                        .then((recipeData) => {
+                          const ingredientList = recipeData["extendedIngredients"].map((item) => item.original);
+                          const stepList = recipeData["analyzedInstructions"][0]["steps"].map((item) => item.step);
+                          const equipmentSet = new Set();
+                          recipeData["analyzedInstructions"][0]["steps"].forEach((element) => {
+                            element.equipment.forEach((item) => equipmentSet.add(item.name));
+                          });
+                          const equipmentList = Array.from(equipmentSet)
+
+                          const recipeInfo = {
+                            "name" : recipeData["title"],
+                            "servings" : recipeData["servings"],
+                            "time" : recipeData["readyInMinutes"],
+                            "image" : recipeData["image"],
+                            "ingredients" : ingredientList,
+                            "equipment" : equipmentList,
+                            "stepsLong" : recipeData["analyzedInstructions"][0]["steps"]
+                          }
+                          window.localStorage.setItem(currentItem.id, JSON.stringify(recipeInfo));
+                        })
+                        .catch(error => console.log(error));
+                      };
+                    });
+
+                    console.log('what are we storing in local storages');
+                    console.log(JSON.parse(window.localStorage.getItem("items")));
+                    navigate("/menu");
+                  }}>
                   <div className="flex items-center rounded-lg overflow-hidden">
                     {savedMenus[menu].items && savedMenus[menu].items.map((item) => {
                       let width = 100/savedMenus[menu].items.length
-                      console.log(width)
                       return <div className={`h-20 min-w-[${width}%] flex justify-center items-center`}><img src={item.image}  alt="" /></div>
                     })}
                   </div>

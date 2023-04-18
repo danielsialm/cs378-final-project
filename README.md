@@ -4,7 +4,7 @@
 
 Endpoint: https://api.spoonacular.com/recipes
 
-apiKey=09a121a6694d4d7e8473e2226fefe82f
+apiKey=940c7c2ad4974226862d5c390f8a11a1
 
 /complexsearch?instructionsRequired=True
   &sort=popularity
