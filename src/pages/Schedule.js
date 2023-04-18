@@ -53,22 +53,22 @@ const Schedule = () => {
   //   },
   // ];
   
-  useEffect(() => {
-    const scheduleItems = JSON.parse(window.localStorage.getItem("items"));
-    console.log(scheduleItems);
-    var ingredientList = [];
-    var equipmentList = [];
-    var steps = [];
-    var time = 0;
-    scheduleItems.forEach((element) => {
-      console.log('what is the element?');
-      console.log(element);
-      const recipeInfo = JSON.parse(window.localStorage.getItem(element.id));
-      ingredientList = ingredientList.concat(recipeInfo.ingredients);
-      equipmentList = equipmentList.concat(recipeInfo.equipment);
-      var cookTime = parseInt(recipeInfo.time);
-      var estimatedTime = cookTime * .9;
-      time += estimatedTime;
+  // useEffect(() => {
+  //   const scheduleItems = JSON.parse(window.localStorage.getItem("items"));
+  //   console.log(scheduleItems);
+  //   var ingredientList = [];
+  //   var equipmentList = [];
+  //   var steps = [];
+  //   var time = 0;
+  //   scheduleItems.forEach((element) => {
+  //     console.log('what is the element?');
+  //     console.log(element);
+  //     const recipeInfo = JSON.parse(window.localStorage.getItem(element.id));
+  //     ingredientList = ingredientList.concat(recipeInfo.ingredients);
+  //     equipmentList = equipmentList.concat(recipeInfo.equipment);
+  //     var cookTime = parseInt(recipeInfo.time);
+  //     var estimatedTime = cookTime * .9;
+  //     time += estimatedTime;
 
       recipeInfo.stepsLong.forEach((step) => {
         const step_info = {
@@ -80,13 +80,13 @@ const Schedule = () => {
         steps.push(step_info);
       });
 
-      setIngredients(ingredientList);
-      setEquipment(equipmentList);
-      setStepsFin(steps);
-      setTime(time);
+  //     setIngredients(ingredientList);
+  //     setEquipment(equipmentList);
+  //     setStepsFin(steps);
+  //     setTime(time);
 
-    });
-  }, []);
+  //   });
+  // }, []);
 
   const handleFinish = () => {
     window.localStorage.setItem("items", JSON.stringify([]));
@@ -103,6 +103,8 @@ const Schedule = () => {
         </div>
         
         <div>
+          <ScheduleDropList title={"Ingredients"} data={ingredients_all} />
+          <ScheduleDropList title={"Equipment"} data={equipment_all} />
           <ScheduleDropList title={"Ingredients"} data={ingredients_all} />
           <ScheduleDropList title={"Equipment"} data={equipment_all} />
         </div>
