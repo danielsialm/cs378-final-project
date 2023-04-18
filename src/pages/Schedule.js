@@ -17,58 +17,23 @@ const Schedule = () => {
   const [equipment_all, setEquipment] = useState([]);
   const [steps_fin, setStepsFin] = useState([]);
   const [time_all, setTime] = useState(0);
-
-  // const steps = [
-  //   {
-  //     instruction: "Heat pan on stove",
-  //     ingredients: [],
-  //     equipment: [
-  //       { num: "1", name: "pan" },
-  //       { num: "1", name: "stove" },
-  //     ],
-  //   },
-  //   {
-  //     instruction: "Put oil in pan while heating",
-  //     ingredients: [{ num: "1 tbsp", name: "Olive Oil" }],
-  //     equipment: [
-  //       { num: "1", name: "pan" },
-  //       { num: "1", name: "stove" },
-  //     ],
-  //   },
-  //   {
-  //     instruction: "Cook for 3 minutes",
-  //     ingredients: [{ num: "1", name: "Ribeye Steak" }],
-  //     equipment: [
-  //       { num: "1", name: "pan" },
-  //       { num: "1", name: "stove" },
-  //     ],
-  //   },
-  //   {
-  //     instruction: "Flip and cook for an additional 3 minutes",
-  //     ingredients: [{ num: "1", name: "Ribeye Steak" }],
-  //     equipment: [
-  //       { num: "1", name: "pan" },
-  //       { num: "1", name: "stove" },
-  //     ],
-  //   },
-  // ];
   
-  // useEffect(() => {
-  //   const scheduleItems = JSON.parse(window.localStorage.getItem("items"));
-  //   console.log(scheduleItems);
-  //   var ingredientList = [];
-  //   var equipmentList = [];
-  //   var steps = [];
-  //   var time = 0;
-  //   scheduleItems.forEach((element) => {
-  //     console.log('what is the element?');
-  //     console.log(element);
-  //     const recipeInfo = JSON.parse(window.localStorage.getItem(element.id));
-  //     ingredientList = ingredientList.concat(recipeInfo.ingredients);
-  //     equipmentList = equipmentList.concat(recipeInfo.equipment);
-  //     var cookTime = parseInt(recipeInfo.time);
-  //     var estimatedTime = cookTime * .9;
-  //     time += estimatedTime;
+  useEffect(() => {
+    const scheduleItems = JSON.parse(window.localStorage.getItem("items"));
+    console.log(scheduleItems);
+    var ingredientList = [];
+    var equipmentList = [];
+    var steps = [];
+    var time = 0;
+    scheduleItems.forEach((element) => {
+      console.log('what is the element?');
+      console.log(element);
+      const recipeInfo = JSON.parse(window.localStorage.getItem(element.id));
+      ingredientList = ingredientList.concat(recipeInfo.ingredients);
+      equipmentList = equipmentList.concat(recipeInfo.equipment);
+      var cookTime = parseInt(recipeInfo.time);
+      var estimatedTime = cookTime * .9;
+      time += estimatedTime;
 
       recipeInfo.stepsLong.forEach((step) => {
         const step_info = {
@@ -80,13 +45,13 @@ const Schedule = () => {
         steps.push(step_info);
       });
 
-  //     setIngredients(ingredientList);
-  //     setEquipment(equipmentList);
-  //     setStepsFin(steps);
-  //     setTime(time);
+      setIngredients(ingredientList);
+      setEquipment(equipmentList);
+      setStepsFin(steps);
+      setTime(time);
 
-  //   });
-  // }, []);
+    });
+  }, []);
 
   const handleFinish = () => {
     window.localStorage.setItem("items", JSON.stringify([]));
