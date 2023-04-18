@@ -77,7 +77,7 @@ const Home = () => {
   return (
     <div className="h-auto md:p-8 py-4 mt-4 mx-6 flex flex-col items-center mb-24">
       <div className="md:w-2/3 w-full flex flex-col items-center space-y-7">
-        <div className="w-full flex justify-between items-center">
+        <div className="w-full flex justify-between items-center rounded-lg pr-4 py-4">
           <div className="md:text-5xl text-3xl font-bold">Cook Your Way</div>
           <div className="w-12 h-12 rounded-full border-2 border-gray-100 flex items-center justify-center">
             <User
@@ -113,7 +113,7 @@ const Home = () => {
             })}
           </div>
         </div>
-        <div className="w-full">
+        <div className="w-full rounded-lg px-4 py-4">
           <div className="flex justify-between items-center mb-4">
             <h1 className="text-2xl font-bold ">Your Menu</h1>
             {JSON.parse(window.localStorage.getItem("items")) &&
