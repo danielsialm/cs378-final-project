@@ -23,7 +23,10 @@ const ScheduleCarousel = ({ steps }) => {
           onClick={nextSlide}>
           <ArrowRight />
         </div>
-      )}>
+      )}
+      adaptiveHeight={true}
+      >
+
       {steps.map((this_step, i) => {
         console.log(this_step);
         return (
@@ -34,7 +37,7 @@ const ScheduleCarousel = ({ steps }) => {
               </h2>
             </div>
 
-            <div className="flex justify-between w-full">
+            <div className="flex justify-between w-full mb-20">
               <div className="w-5/12">
                 <h4 className="font-semibold text-lg pb-4">Ingredients</h4>
                 {this_step.ingredient.length > 0 ? (
