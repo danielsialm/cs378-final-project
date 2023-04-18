@@ -154,7 +154,7 @@ const RecipeCard = ({ title, id, image }) => {
             "image" : recipeData["image"],
             "ingredients" : ingredientList,
             "equipment" : equipmentList,
-            "steps" : stepList
+            "stepsLong" : recipeData["analyzedInstructions"][0]["steps"]
           }
           window.localStorage.setItem(id, JSON.stringify(recipeInfo));
         })

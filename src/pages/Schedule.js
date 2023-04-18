@@ -20,21 +20,26 @@ const Schedule = () => {
   
   useEffect(() => {
     const scheduleItems = JSON.parse(window.localStorage.getItem("items"));
+    setIngredients([]);
+    setEquipment([]);
+    setStepsFin([]);
 
     scheduleItems.forEach((element) => {
       const recipeInfo = JSON.parse(window.localStorage.getItem(element.id));
-      setIngredients([...ingredients_all, recipeInfo.ingredients]);
-      setEquipment([...equipment_all, recipeInfo.equipment]);
+      setIngredients([...ingredients_all, ...recipeInfo.ingredients]);
+      setEquipment([...equipment_all, ...recipeInfo.equipment]);
 
-      recipeInfo.steps.forEach((step) => {
+      var steps = []
+      recipeInfo.stepsLong.forEach((step) => {
         const step_info = {
-          stepDetail: step, 
+          stepDetail: step.step, 
           recipe_id: element.id,
-          ingredient: [],
-          equipment: []
+          ingredient: step.ingredients.map((item) => item.name),
+          equipment: step.equipment.map((item) => item.name)
         }
-        setStepsFin([...steps_fin, step_info]);
+        steps.push(step_info);
       });
+      setStepsFin(steps);
     });
   }, []);
 

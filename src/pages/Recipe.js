@@ -137,7 +137,7 @@ const Recipe = () => {
             "image" : recipeData["image"],
             "ingredients" : ingredientList,
             "equipment" : equipmentList,
-            "steps" : stepList
+            "stepsLong" : recipeData["analyzedInstructions"][0]["steps"]
           }
           window.localStorage.setItem(id, JSON.stringify(recipeInfo));
         })
@@ -151,7 +151,7 @@ const Recipe = () => {
         setImage(recipeInfo["image"]);
         setIngredients(recipeInfo["ingredients"]);
         setEquipment(recipeInfo["equipment"]);
-        setSteps(recipeInfo["steps"]);
+        setSteps(recipeInfo["stepsLong"].map((item) => item.step));
       }
 
       //saving the recipe
