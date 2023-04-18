@@ -133,9 +133,32 @@ const RecipeCard = ({ title, id, image }) => {
       console.log(newArray);
       window.localStorage.setItem("items", JSON.stringify(newArray));
 
-      // cache information
-      if(window.localStorage.getItem(currentItem.id)) {
+      // cache information if it doesn't exist already
+      if(!window.localStorage.getItem(currentItem.id)) {
+        const src = `https://api.spoonacular.com/recipes/${currentItem.id}/information?apiKey=09a121a6694d4d7e8473e2226fefe82f`;
+        fetch(src)
+        .then(response => response.json())
+        .then((recipeData) => {
+          const ingredientList = recipeData["extendedIngredients"].map((item) => item.original);
+          const stepList = recipeData["analyzedInstructions"][0]["steps"].map((item) => item.step);
+          const equipmentSet = new Set();
+          recipeData["analyzedInstructions"][0]["steps"].forEach((element) => {
+            element.equipment.forEach((item) => equipmentSet.add(item.name));
+          });
+          const equipmentList = Array.from(equipmentSet)
 
+          const recipeInfo = {
+            "name" : recipeData["title"],
+            "servings" : recipeData["servings"],
+            "time" : recipeData["readyInMinutes"],
+            "image" : recipeData["image"],
+            "ingredients" : ingredientList,
+            "equipment" : equipmentList,
+            "steps" : stepList
+          }
+          window.localStorage.setItem(id, JSON.stringify(recipeInfo));
+        })
+        .catch(error => console.log(error));
       }
     }
   }, [used]);

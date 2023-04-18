@@ -2,19 +2,14 @@ import React from "react";
 import Header from "../components/Header";
 import { useNavigate } from "react-router";
 import { Button } from "@mui/material";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./Schedule.css";
 
 const Schedule = () => {
   const navigate = useNavigate();
-  const [ingredients_all, setIngredients] = useState(["oil", "brown sugar"]);
-  const [equipment_all, setEquipment] = useState(["pan", "stove"]);
-  const [steps_fin, setStepsFin] = useState([
-    { stepDetail: "Heat Pan with oil on Stove", 
-      recipe_id: '01415',
-      ingredient: ["oil"],
-      equipment: ["stove", "pan"]}
-  ]);
+  const [ingredients_all, setIngredients] = useState([]);
+  const [equipment_all, setEquipment] = useState([]);
+  const [steps_fin, setStepsFin] = useState([]);
 
   const steps = [
     "Heat pan on stove",
@@ -22,13 +17,26 @@ const Schedule = () => {
     "Cook for 3 minutes",
     "Flip and cook for an additional 3 minutes",
   ];
+  
+  useEffect(() => {
+    const scheduleItems = JSON.parse(window.localStorage.getItem("items"));
 
-  const Ingredients = [
-    { num: "1 tbsp", name: "Olive Oil" },
-    { num: "10 oz", name: "Ribeye Steak" },
-    { num: "2 pinches", name: "Salt" },
-    { num: "1", name: "Stove" },
-  ];
+    scheduleItems.forEach((element) => {
+      const recipeInfo = JSON.parse(window.localStorage.getItem(element.id));
+      setIngredients([...ingredients_all, recipeInfo.ingredients]);
+      setEquipment([...equipment_all, recipeInfo.equipment]);
+
+      recipeInfo.steps.forEach((step) => {
+        const step_info = {
+          stepDetail: step, 
+          recipe_id: element.id,
+          ingredient: [],
+          equipment: []
+        }
+        setStepsFin([...steps_fin, step_info]);
+      });
+    });
+  }, []);
 
   const handleFinish = () => {
     window.localStorage.setItem("items", JSON.stringify([]));
@@ -47,12 +55,11 @@ const Schedule = () => {
             Ingredients and Equipment:
           </h2>
           <div className="flex flex-col w-full ">
-            {Ingredients &&
-              Ingredients.map((ingredient, i) => {
+            {ingredients_all &&
+              ingredients_all.map((item) => {
                 return (
                   <div className="w-full flex flex-row text-lg">
-                    <div className="mr-2">{ingredient.num}</div>
-                    <div>{ingredient.name}</div>
+                    <div>{item}</div>
                   </div>
                 );
               })}

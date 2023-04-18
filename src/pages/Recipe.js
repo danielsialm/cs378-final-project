@@ -108,10 +108,9 @@ const Recipe = () => {
     e.stopPropagation();
   };
 
-
-    const src = `https://api.spoonacular.com/recipes/${id}/information?apiKey=09a121a6694d4d7e8473e2226fefe82f`;
     useEffect(() => {
       if(!window.localStorage.getItem(id)) {
+        const src = `https://api.spoonacular.com/recipes/${id}/information?apiKey=09a121a6694d4d7e8473e2226fefe82f`;
         fetch(src)
         .then(response => response.json())
         .then((recipeData) => {
