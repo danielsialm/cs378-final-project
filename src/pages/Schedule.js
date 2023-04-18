@@ -70,8 +70,6 @@ const Schedule = () => {
         <div>
           <ScheduleDropList title={"Ingredients"} data={ingredients_all} />
           <ScheduleDropList title={"Equipment"} data={equipment_all} />
-          <ScheduleDropList title={"Ingredients"} data={ingredients_all} />
-          <ScheduleDropList title={"Equipment"} data={equipment_all} />
         </div>
 
         <div className="w-full">

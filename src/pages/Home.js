@@ -121,7 +121,7 @@ const Home = () => {
 
 
             <div
-              className="rounded-full bg-red-100 p-3"
+              className="w-12 h-12 rounded-full border-2 border-gray-100 flex items-center justify-center"
               onClick={() => {
                 navigate("/menu");
               }}>
