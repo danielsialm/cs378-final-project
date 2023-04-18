@@ -17,8 +17,9 @@ function Login() {
     }
     if (user) navigate("/home");
   }, [user, loading, navigate]);
+
   return (
-    <div>
+    <div className="bg-gray-100 w-full h-screen">
       <div className="logo_container">
         <img src={logo} alt="Cook Your Way Logo" className="logo-img"></img>
       </div>
@@ -47,7 +48,7 @@ function Login() {
           >
             Login
           </button>
-          <div>
+          <div className="pb-2">
             Don't have an account? <Link to="/register">Register</Link> now.
           </div>
           <div>
