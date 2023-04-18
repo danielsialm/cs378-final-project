@@ -132,6 +132,11 @@ const RecipeCard = ({ title, id, image }) => {
 
       console.log(newArray);
       window.localStorage.setItem("items", JSON.stringify(newArray));
+
+      // cache information
+      if(window.localStorage.getItem(currentItem.id)) {
+
+      }
     }
   }, [used]);
 

@@ -2,10 +2,19 @@ import React from "react";
 import Header from "../components/Header";
 import { useNavigate } from "react-router";
 import { Button } from "@mui/material";
+import { useState } from "react";
 import "./Schedule.css";
 
 const Schedule = () => {
   const navigate = useNavigate();
+  const [ingredients_all, setIngredients] = useState(["oil", "brown sugar"]);
+  const [equipment_all, setEquipment] = useState(["pan", "stove"]);
+  const [steps_fin, setStepsFin] = useState([
+    { stepDetail: "Heat Pan with oil on Stove", 
+      recipe_id: '01415',
+      ingredient: ["oil"],
+      equipment: ["stove", "pan"]}
+  ]);
 
   const steps = [
     "Heat pan on stove",
