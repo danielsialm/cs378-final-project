@@ -114,6 +114,7 @@ const Recipe = () => {
         fetch(src)
         .then(response => response.json())
         .then((recipeData) => {
+          console.log(recipeData);
           setName(recipeData["title"]);
           setServings(recipeData["servings"]);
           setTime(recipeData["readyInMinutes"]);
@@ -144,8 +145,8 @@ const Recipe = () => {
         .catch(error => console.log(error));
       } else {
         const recipeInfo = JSON.parse(window.localStorage.getItem(id));
-
-        setName(recipeInfo["title"]);
+        console.log(recipeInfo);
+        setName(recipeInfo["name"]);
         setServings(recipeInfo["servings"]);
         setTime(recipeInfo["time"]);
         setImage(recipeInfo["image"]);
@@ -180,15 +181,17 @@ const Recipe = () => {
             }
           });
       }
+
+      console.log(name);
     }, []);
 
   return (
     <>
       <Header
-        back={-1}
-        Right={Bookmark}
-        rightOnClick={handleSave}
-        rightStyle={`w-8 h-8 ${save ? "fill-[#FEE135]" : ""} stroke-[#FEE135]`}
+          back={-1}
+          Right={Bookmark}
+          rightOnClick={handleSave}
+          rightStyle={`w-8 h-8 ${save ? "fill-[#FEE135]" : ""} stroke-[#FEE135]`}
       />
       <div className="space-y-4 mx-8">
         <div>
