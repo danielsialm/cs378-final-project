@@ -18,7 +18,9 @@ function RecipesList({ recipes }) {
       )
     );
   }else {
-    return;
+    return (
+      <h2 className="text-2xl font-bold my-4">No recipes here!</h2>
+    );
   }
 }
 export default RecipesList;

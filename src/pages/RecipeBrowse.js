@@ -48,6 +48,8 @@ const RecipeBrowse = ({ pageName }) => {
         ).then((res) => {
           if (res.data) {
             setRecipes(Object.values(res.data))
+          }else {
+            setRecipes(null);
           }
         })
       }else {

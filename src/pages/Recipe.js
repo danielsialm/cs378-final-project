@@ -51,7 +51,7 @@ const Recipe = () => {
       return;
     } else {
       let index = savedRecipes.findIndex((recipe) => {
-        return recipe.id === id;
+        return parseInt(recipe.id) === parseInt(id);
       });
 
       // Recipe not saved yet
@@ -169,6 +169,9 @@ const Recipe = () => {
               // each time you click on save. In fact, that's probably better tbh
               setSaved(recipes.some((recipe) => parseInt(recipe.id) === parseInt(id)));
               setSavedRecipes(recipes);
+            }else {
+              setSaved(false);
+              setSavedRecipes([]);
             }
           });
       }
