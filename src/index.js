@@ -25,6 +25,7 @@ root.render(
         <Route path="/recentrecipes" element={<RecipeBrowse pageName={"Recent Recipes"}/>}/>
         <Route path="/savedrecipes" element={<RecipeBrowse pageName={"Saved Recipes"}/>}/>
         <Route path="/myrecipes" element={<RecipeBrowse pageName={"My Recipes"}/>}/>
+        <Route path='/search/:query' element = {<RecipeBrowse pageName = {"Search"}/>}/>
         <Route path="/menu" element={<Menu />}/>
         <Route path="/schedule" element={<Schedule />}/>
         <Route path="/recipe/:id" element={<Recipe />}/>

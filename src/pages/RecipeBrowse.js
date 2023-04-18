@@ -4,11 +4,11 @@ import RecipesList from "../components/RecipesList";
 import "./RecipeBrowse.css";
 import axios from "axios";
 import { firebaseConfig, auth } from "./firebase";
-
+import { useParams, useNavigate } from "react-router-dom";
 
 import recentRecipes from "../data/recent"
 import popularRecipes from "../data/popular";
-
+import { ReactComponent as Search } from "../assets/icons/search.svg";
 
 const RecipeBrowse = ({ pageName }) => {
   const [recipes, setRecipes] = useState(null);
@@ -24,7 +24,12 @@ const RecipeBrowse = ({ pageName }) => {
   // }, []);
 
   // local
+
+  const searchURL = 'https://api.spoonacular.com/recipes/complexSearch?apiKey=09a121a6694d4d7e8473e2226fefe82f&instructionsRequired=True&sort=popularity'
+  const { query } = useParams();
+  const navigate = useNavigate();
   useEffect(() => {
+    
     console.log(pageName)
     if (pageName === "Trending Recipes")
       setRecipes(popularRecipes.results);
@@ -49,20 +54,54 @@ const RecipeBrowse = ({ pageName }) => {
         alert("Please login to save recipes.");
       }
     }
-      
+    else if(pageName === "Search"){
+      console.log(query)
+      axios.get(`${searchURL}&query=${query}`).then((res) => {
+        if(res.data){
+          console.log(res.data)
+          setRecipes(res.data.results);
+        }
+      }).catch((err) => console.log(err));
+    }
   }, []);
+
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      console.log("search")
+      navigate(`/search/${event.target.value}`);
+      navigate(0)
+    }
+  };
 
   return (
     <div>
 
       <Header back="/home" />
       <div className="recipe-browse-wrapper">
-        <div className="recipe-browse-title-wrapper">
-          <h1>{pageName}</h1>
-          {/* <div className="recipe-browse-filter">
-            <img src={require("../assets/filter.png")} />
-          </div> */}
-        </div>
+      {pageName === "Search" ?
+          <div>
+            <div className="w-full md:p-3 p-3 md:border-4 border-2 border-gray-200 bg-gray-50 rounded-lg flex flex-row items-center mb-2">
+              <Search className="w-7 h-7 text-gray-600 mr-4"></Search>
+              <input
+                type="text"
+                className="active:border-none md:text-2xl text-xl outline-none grow min-w-0 bg-gray-50"
+                placeholder={query}
+                onKeyDown={handleKeyDown}
+              >
+              </input>
+              {/* <Options className="w-10 h-10 text-gray-600 ml-4"></Options> */}
+            </div>
+            <div className="py-2 font-bold text-gray-500">{`Results for ${query}`}</div>
+          </div>
+            :
+            <div className="recipe-browse-title-wrapper">
+              <h1>{pageName}</h1>
+              {/* <div className="recipe-browse-filter">
+                <img src={require("../assets/filter.png")} />
+              </div> */}
+            </div>
+          }
+        
         <RecipesList recipes={recipes} />
       </div>
     </div>
