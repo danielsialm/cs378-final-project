@@ -10,6 +10,7 @@ const Schedule = () => {
   const [ingredients_all, setIngredients] = useState([]);
   const [equipment_all, setEquipment] = useState([]);
   const [steps_fin, setStepsFin] = useState([]);
+  const [time_all, setTime] = useState(0);
 
   const steps = [
     "Heat pan on stove",
@@ -21,15 +22,18 @@ const Schedule = () => {
   useEffect(() => {
     const scheduleItems = JSON.parse(window.localStorage.getItem("items"));
 
-
     var ingredientList = [];
     var equipmentList = [];
+    var steps = [];
+    var time = 0;
     scheduleItems.forEach((element) => {
       const recipeInfo = JSON.parse(window.localStorage.getItem(element.id));
       ingredientList = ingredientList.concat(recipeInfo.ingredients);
       equipmentList = equipmentList.concat(recipeInfo.equipment);
+      var cookTime = parseInt(recipeInfo.time);
+      var estimatedTime = cookTime * .9;
+      time += estimatedTime;
 
-      var steps = []
       recipeInfo.stepsLong.forEach((step) => {
         const step_info = {
           stepDetail: step.step, 
@@ -40,9 +44,14 @@ const Schedule = () => {
         steps.push(step_info);
       });
 
+      console.log(steps);
+
       setIngredients(ingredientList);
       setEquipment(equipmentList);
       setStepsFin(steps);
+      setTime(time);
+      console.log(time);
+
     });
   }, []);
 
@@ -58,26 +67,35 @@ const Schedule = () => {
         <div>
           <h1 className="text-4xl font-bold mb-8">Your Cooking Schedule</h1>
         </div>
+        
         <div>
+          <h2 className="text-2xl font-bold text-gray-700 mb-4">
+              Estimated Time: {time_all} minutes
+          </h2>
           <h2 className="text-2xl font-bold text-gray-700 mb-4">
             Ingredients:
           </h2>
-          <div className="flex flex-col w-full ">
-            {ingredients_all &&
-              ingredients_all.map((item) => {
-                return (
-                  <div className="w-full flex flex-row text-lg">
-                    <div>{item}</div>
-                  </div>
-                );
-              })}
+          <div className="flex flex-col w-full text-base text-gray-700 p-0.5 ps-4">
+            {ingredients_all.map((item) => (
+              <li className="text-base text-gray-700" key={item}>
+                {item}
+              </li>
+            ))}
+          </div>
+          <h2 className="text-2xl font-bold text-gray-700 my-4">Equipment:</h2>
+          <div className="flex flex-col w-full text-base text-gray-700 p-0.5 ps-4">
+            {equipment_all.map((item) => (
+              <li className="text-base text-gray-700" key={item}>
+                {item}
+              </li>
+            ))}
           </div>
         </div>
 
         <div className="w-full flex flex-col">
           <h2 className="text-2xl font-bold text-gray-700 mb-4">Steps:</h2>
-          {steps &&
-            steps.map((step, i) => {
+          {steps_fin &&
+            steps_fin.map((step, i) => {
               return (
                 <div className="flex flex-row w-full">
                   <div
@@ -89,7 +107,7 @@ const Schedule = () => {
                     <div className="w-4 h-4 bg-gray-100 rounded-full"></div>
                   </div>
                   <div className="text-2xl font-bold text-gray-700 py-2 ">
-                    {step}
+                    {step.stepDetail}
                   </div>
                 </div>
               );
