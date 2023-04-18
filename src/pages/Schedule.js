@@ -17,87 +17,41 @@ const Schedule = () => {
   const [equipment_all, setEquipment] = useState([]);
   const [steps_fin, setStepsFin] = useState([]);
   const [time_all, setTime] = useState(0);
-
-  const steps = [
-    {
-      instruction: "Heat pan on stove",
-      ingredients: [],
-      equipment: [
-        { num: "1", name: "pan" },
-        { num: "1", name: "stove" },
-      ],
-    },
-    {
-      instruction: "Put oil in pan while heating",
-      ingredients: [{ num: "1 tbsp", name: "Olive Oil" }],
-      equipment: [
-        { num: "1", name: "pan" },
-        { num: "1", name: "stove" },
-      ],
-    },
-    {
-      instruction: "Cook for 3 minutes",
-      ingredients: [{ num: "1", name: "Ribeye Steak" }],
-      equipment: [
-        { num: "1", name: "pan" },
-        { num: "1", name: "stove" },
-      ],
-    },
-    {
-      instruction: "Flip and cook for an additional 3 minutes",
-      ingredients: [{ num: "1", name: "Ribeye Steak" }],
-      equipment: [
-        { num: "1", name: "pan" },
-        { num: "1", name: "stove" },
-      ],
-    },
-  ];
   
-  // useEffect(() => {
-  //   const scheduleItems = JSON.parse(window.localStorage.getItem("items"));
-  //   console.log(scheduleItems);
-  //   var ingredientList = [];
-  //   var equipmentList = [];
-  //   var steps = [];
-  //   var time = 0;
-  //   scheduleItems.forEach((element) => {
-  //     console.log('what is the element?');
-  //     console.log(element);
-  //     const recipeInfo = JSON.parse(window.localStorage.getItem(element.id));
-  //     ingredientList = ingredientList.concat(recipeInfo.ingredients);
-  //     equipmentList = equipmentList.concat(recipeInfo.equipment);
-  //     var cookTime = parseInt(recipeInfo.time);
-  //     var estimatedTime = cookTime * .9;
-  //     time += estimatedTime;
+  useEffect(() => {
+    const scheduleItems = JSON.parse(window.localStorage.getItem("items"));
+    console.log(scheduleItems);
+    var ingredientList = [];
+    var equipmentList = [];
+    var steps = [];
+    var time = 0;
+    scheduleItems.forEach((element) => {
+      console.log('what is the element?');
+      console.log(element);
+      const recipeInfo = JSON.parse(window.localStorage.getItem(element.id));
+      ingredientList = ingredientList.concat(recipeInfo.ingredients);
+      equipmentList = equipmentList.concat(recipeInfo.equipment);
+      var cookTime = parseInt(recipeInfo.time);
+      var estimatedTime = cookTime * .9;
+      time += estimatedTime;
 
-  // const Ingredients = [
-  //   { num: "1 tbsp", name: "Olive Oil" },
-  //   { num: "10 oz", name: "Ribeye Steak" },
-  //   { num: "2 pinches", name: "Salt" },
-  // ];
+      recipeInfo.stepsLong.forEach((step) => {
+        const step_info = {
+          stepDetail: step.step, 
+          recipe_id: element.id,
+          ingredient: step.ingredients.map((item) => item.name),
+          equipment: step.equipment.map((item) => item.name)
+        }
+        steps.push(step_info);
+      });
 
-  // const equipment = [
-  //   { num: "1", name: "pan" },
-  //   { num: "1", name: "stove" },
-  //   { num: "1", name: "oven" },
-  // ];
-  //     recipeInfo.stepsLong.forEach((step) => {
-  //       const step_info = {
-  //         stepDetail: step.step, 
-  //         recipe_id: element.id,
-  //         ingredient: step.ingredients.map((item) => item.name),
-  //         equipment: step.equipment.map((item) => item.name)
-  //       }
-  //       steps.push(step_info);
-  //     });
+      setIngredients(ingredientList);
+      setEquipment(equipmentList);
+      setStepsFin(steps);
+      setTime(time);
 
-  //     setIngredients(ingredientList);
-  //     setEquipment(equipmentList);
-  //     setStepsFin(steps);
-  //     setTime(time);
-
-  //   });
-  // }, []);
+    });
+  }, []);
 
   const handleFinish = () => {
     window.localStorage.setItem("items", JSON.stringify([]));
@@ -110,7 +64,7 @@ const Schedule = () => {
       <div className="space-y-4 mx-8">
         <div className="mb-8">
           <h1 className="text-4xl font-bold mb-3">Your Schedule</h1>
-          <h2 className="text-xl font-semibold">Estimated Time: 1 hour</h2>
+          <h2 className="text-xl font-semibold">Estimated Time: {time_all} minutes</h2>
         </div>
         
         <div>
@@ -119,7 +73,7 @@ const Schedule = () => {
         </div>
 
         <div className="w-full">
-          <ScheduleCarousel steps={steps}/>
+          <ScheduleCarousel steps={steps_fin}/>
           {/* <h2 className="text-2xl font-bold text-gray-700 mb-4">
               Estimated Time: {time_all} minutes
           </h2>

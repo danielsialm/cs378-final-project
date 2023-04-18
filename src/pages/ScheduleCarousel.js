@@ -22,30 +22,29 @@ const ScheduleCarousel = ({ steps }) => {
           <ArrowRight />
         </div>
       )}
-      defaultControlsConfig={{ pagingDotsClassName: "px-2" }}>
+      defaultControlsConfig={{ pagingDotsClassName: "px-2" }}
+      adaptiveHeight={true}>
       {steps.map((step, i) => {
-        console.log(step);
+        console.log(step)
         return (
           <div className=" bg-[#ECFFEB] flex w-full flex-col pt-16 pb-20 px-10 items-center rounded-2xl">
             <h2 className="text-3xl font-bold mb-3 text-left w-full">
               {i + 1}.
             </h2>
             <h2 className="text-3xl font-bold mb-14 text-left w-full">
-              {step.instruction}
+              {step.stepDetail}
             </h2>
             <div className="flex justify-between w-full">
               <div className="w-5/12">
                 <h4 className="font-semibold text-lg">Ingredients</h4>
                 <ul className="list-disc pl-5">
-                  {step.ingredients.map((ingredient) => {
+                  {step.ingredient.map((ingredient) => {
                     return (
                       <li>
-                        {ingredient.num} {ingredient.name}
+                        {ingredient}
                       </li>
                     );
                   })}
-                  {/* <li>10oz ribeye steak</li>
-                  <li>ljga</li> */}
                 </ul>
               </div>
               <div className="w-5/12">
@@ -54,7 +53,7 @@ const ScheduleCarousel = ({ steps }) => {
                   {step.equipment.map((equipment) => {
                     return (
                       <li>
-                        {equipment.num} {equipment.name}
+                        {equipment}
                       </li>
                     );
                   })}

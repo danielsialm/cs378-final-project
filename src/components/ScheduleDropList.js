@@ -19,9 +19,8 @@ const ScheduleDropList = ({ title, data }) => {
         {data &&
           data.map((item, i) => {
             return (
-              <div className="w-full flex items-center justify-between text-lg capitalize bg-gray-200 mb-2 rounded-md px-3 py-3" key={i}>
-                <div className="font-medium">{item.name}</div>
-                <div className="mr-2">{item.num}</div>
+              <div className="w-full flex items-center justify-between text-lg capitalize bg-gray-100 mb-2 rounded-md px-3 py-3" key={i}>
+                <div className="font-medium">{item}</div>
               </div>
             );
           })}
