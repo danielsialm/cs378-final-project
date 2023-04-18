@@ -21,12 +21,14 @@ const Schedule = () => {
   
   useEffect(() => {
     const scheduleItems = JSON.parse(window.localStorage.getItem("items"));
-
+    console.log(scheduleItems);
     var ingredientList = [];
     var equipmentList = [];
     var steps = [];
     var time = 0;
     scheduleItems.forEach((element) => {
+      console.log('what is the element?');
+      console.log(element);
       const recipeInfo = JSON.parse(window.localStorage.getItem(element.id));
       ingredientList = ingredientList.concat(recipeInfo.ingredients);
       equipmentList = equipmentList.concat(recipeInfo.equipment);
@@ -44,13 +46,10 @@ const Schedule = () => {
         steps.push(step_info);
       });
 
-      console.log(steps);
-
       setIngredients(ingredientList);
       setEquipment(equipmentList);
       setStepsFin(steps);
       setTime(time);
-      console.log(time);
 
     });
   }, []);

@@ -25,7 +25,7 @@ const RecipeBrowse = ({ pageName }) => {
 
   // local
 
-  const searchURL = 'https://api.spoonacular.com/recipes/complexSearch?apiKey=09a121a6694d4d7e8473e2226fefe82f&instructionsRequired=True&sort=popularity'
+  const searchURL = 'https://api.spoonacular.com/recipes/complexSearch?apiKey=940c7c2ad4974226862d5c390f8a11a1&instructionsRequired=True&sort=popularity'
   const { query } = useParams();
   const navigate = useNavigate();
   useEffect(() => {

@@ -135,7 +135,7 @@ const RecipeCard = ({ title, id, image }) => {
 
       // cache information if it doesn't exist already
       if(!window.localStorage.getItem(currentItem.id)) {
-        const src = `https://api.spoonacular.com/recipes/${currentItem.id}/information?apiKey=09a121a6694d4d7e8473e2226fefe82f`;
+        const src = `https://api.spoonacular.com/recipes/${currentItem.id}/information?apiKey=940c7c2ad4974226862d5c390f8a11a1`;
         fetch(src)
         .then(response => response.json())
         .then((recipeData) => {

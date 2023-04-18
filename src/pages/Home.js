@@ -29,7 +29,6 @@ const Home = () => {
   const [savedMenus, setSavedMenus] = useState(null);
 
   const getSavedMenus = () => {
-    console.log(auth);
     if (!auth || !auth.currentUser) {
       console.log("no login");
       return;
@@ -171,15 +170,57 @@ const Home = () => {
           <div className="text-2xl font-bold mb-4">Saved Menus</div>
           {savedMenus &&
             Object.keys(savedMenus).map((menu, i) => {
-              console.log(savedMenus[menu])
               return (
                 <div
                   className="rounded-lg mb-4 bg-white"
-                  key={i}>
+                  key={i}
+                  onClick={() => {
+                    window.localStorage.setItem("items", JSON.stringify([]));
+                    console.log('is this format weird?');
+                    console.log(savedMenus[menu].items);
+                    window.localStorage.setItem("items", JSON.stringify(savedMenus[menu].items));
+                    
+                    savedMenus[menu].items.forEach((currentItem) => {
+                      console.log('checking wehere we are at');
+                      console.log(currentItem);
+                      console.log(currentItem.id);
+                      // cache information if it doesn't exist already
+                      if(!window.localStorage.getItem(currentItem.id)) {
+                        let identifier = currentItem.id;
+                        const src = `https://api.spoonacular.com/recipes/${identifier}/information?apiKey=940c7c2ad4974226862d5c390f8a11a1`;
+                        fetch(src)
+                        .then(response => response.json())
+                        .then((recipeData) => {
+                          const ingredientList = recipeData["extendedIngredients"].map((item) => item.original);
+                          const stepList = recipeData["analyzedInstructions"][0]["steps"].map((item) => item.step);
+                          const equipmentSet = new Set();
+                          recipeData["analyzedInstructions"][0]["steps"].forEach((element) => {
+                            element.equipment.forEach((item) => equipmentSet.add(item.name));
+                          });
+                          const equipmentList = Array.from(equipmentSet)
+
+                          const recipeInfo = {
+                            "name" : recipeData["title"],
+                            "servings" : recipeData["servings"],
+                            "time" : recipeData["readyInMinutes"],
+                            "image" : recipeData["image"],
+                            "ingredients" : ingredientList,
+                            "equipment" : equipmentList,
+                            "stepsLong" : recipeData["analyzedInstructions"][0]["steps"]
+                          }
+                          window.localStorage.setItem(currentItem.id, JSON.stringify(recipeInfo));
+                        })
+                        .catch(error => console.log(error));
+                      };
+                    });
+
+                    console.log('what are we storing in local storages');
+                    console.log(JSON.parse(window.localStorage.getItem("items")));
+                    navigate("/menu");
+                  }}>
                   <div className="flex items-center rounded-lg overflow-hidden">
                     {savedMenus[menu].items && savedMenus[menu].items.map((item) => {
                       let width = 100/savedMenus[menu].items.length
-                      console.log(width)
                       return <div className={`h-20 min-w-[${width}%] flex justify-center items-center`}><img src={item.image}  alt="" /></div>
                     })}
                   </div>
