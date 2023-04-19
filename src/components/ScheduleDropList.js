@@ -4,7 +4,7 @@ import Collapse from "@mui/material/Collapse";
 import { ReactComponent as ExpandMore } from "../assets/chevron-down.svg";
 import { ReactComponent as ExpandLess } from "../assets/chevron-up.svg";
 
-const ScheduleDropList = ({ title, data }) => {
+const ScheduleDropList = ({ title, data, noCap }) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -16,14 +16,23 @@ const ScheduleDropList = ({ title, data }) => {
         {open ? <ExpandLess /> : <ExpandMore />}
       </div>
       <Collapse in={open} timeout="auto" unmountOnExit>
-        {data &&
-          data.map((item, i) => {
+        {noCap ? (
+          data && data.map((item, i) => {
+            return (
+              <div className="w-full flex items-center justify-between text-lg bg-gray-100 mb-2 rounded-md px-3 py-3" key={i}>
+                <div className="font-medium">{item}</div>
+              </div>
+            );
+          })) : (
+          
+          data && data.map((item, i) => {
             return (
               <div className="w-full flex items-center justify-between text-lg capitalize bg-gray-100 mb-2 rounded-md px-3 py-3" key={i}>
                 <div className="font-medium">{item}</div>
               </div>
             );
-          })}
+          }))}
+        
       </Collapse>
     </div>
   );

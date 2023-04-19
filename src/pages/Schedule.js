@@ -17,12 +17,14 @@ const Schedule = () => {
   const [equipment_all, setEquipment] = useState([]);
   const [steps_fin, setStepsFin] = useState([]);
   const [time_all, setTime] = useState(0);
+  const [notes_all, setNotes] = useState([]);
   
   useEffect(() => {
     const scheduleItems = JSON.parse(window.localStorage.getItem("items"));
     console.log(scheduleItems);
     var ingredientList = [];
     var equipmentList = [];
+    var notesList = [];
     var steps = [];
     var time = 0;
     scheduleItems.forEach((element) => {
@@ -31,6 +33,9 @@ const Schedule = () => {
       const recipeInfo = JSON.parse(window.localStorage.getItem(element.id));
       ingredientList = ingredientList.concat(recipeInfo.ingredients);
       equipmentList = equipmentList.concat(recipeInfo.equipment);
+      if(recipeInfo.notes && recipeInfo.notes.length > 0) {
+        notesList = notesList.concat(recipeInfo.notes);
+      }
       var cookTime = parseInt(recipeInfo.time);
       var estimatedTime = cookTime * .9;
       time += estimatedTime;
@@ -39,6 +44,7 @@ const Schedule = () => {
         const step_info = {
           stepDetail: step.step, 
           recipe_id: element.id,
+          recipe_name: recipeInfo.name,
           ingredient: step.ingredients.map((item) => item.name),
           equipment: step.equipment.map((item) => item.name)
         }
@@ -49,6 +55,7 @@ const Schedule = () => {
       setEquipment(equipmentList);
       setStepsFin(steps);
       setTime(time);
+      setNotes(notesList);
 
     });
   }, []);
@@ -75,6 +82,13 @@ const Schedule = () => {
         <div className="w-full">
           <ScheduleCarousel steps={steps_fin}/>
         </div>
+
+        {notes_all.length > 0 ? (
+          <div className="w-full">
+            <ScheduleDropList title={"Notes"} data={notes_all} noCap={true}/>
+          </div>) : (<div></div>
+        )}
+        
 
         {/* Old design */}
         {/* <div className="w-full flex flex-col">

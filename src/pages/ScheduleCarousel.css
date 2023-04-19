@@ -14,12 +14,12 @@
     justify-content: space-between;
     width: 100%;
     margin: 0;
-    padding: 0;
+    padding-top: 5rem;
     
    }
 
    .slider-control-bottomcenter li{
-
+    padding-top: 10rem;
     display: block;
     flex: 0 1 auto; /* Default */
     list-style-type: none;    

@@ -7,8 +7,12 @@ import Header from "../components/Header";
 import { firebaseConfig, auth } from "../pages/firebase";
 import axios from "axios";
 import { ReactComponent as Bookmark } from "../assets/bookmark.svg";
-
-import recipeData from "../data/recipe.json";
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import TextField from '@mui/material/TextField';
 
 const Recipe = () => {
   const { id } = useParams();
@@ -21,11 +25,28 @@ const Recipe = () => {
   const [steps, setSteps] = useState(["Loading..."]);
   const [save, setSaved] = useState(false);
   const [savedRecipes, setSavedRecipes] = useState([]);
+  const [notes, setNotes] = useState("");
+  const [open, setOpen] = useState(false);
+
 
   let currentItem = {};
   currentItem.title = name;
   currentItem.image = image;
   currentItem.id = id;
+  currentItem.notes = notes;
+
+  const handleClickOpen = (e) => {
+    if(!save) {
+      setOpen(true);
+    }else {
+      setNotes("");
+      handleSave(e);
+    }
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const handleFinish = () => {
     //adding it to a menu
@@ -45,6 +66,7 @@ const Recipe = () => {
   };
 
   const handleSave = (e) => {
+    handleClose();
     if (!auth || !auth.currentUser) {
       e.stopPropagation();
       alert("Please login to save recipes!");
@@ -53,8 +75,8 @@ const Recipe = () => {
       let index = savedRecipes.findIndex((recipe) => {
         return parseInt(recipe.id) === parseInt(id);
       });
-
       // Recipe not saved yet
+      console.log(notes);
       if (index === -1) {
         axios
           .post(
@@ -66,6 +88,13 @@ const Recipe = () => {
           .then((res) => {
             setSavedRecipes([...savedRecipes, currentItem]);
             setSaved(true);
+            let recipeInfo = JSON.parse(window.localStorage.getItem(id));
+            window.localStorage.removeItem(id);
+            recipeInfo["notes"] = notes;
+            console.log(recipeInfo);
+            console.log(notes);
+            window.localStorage.setItem(id, JSON.stringify(recipeInfo));
+            setNotes("");
           });
       } else {
         // Need to get from database because need the db assigned id of the
@@ -94,6 +123,7 @@ const Recipe = () => {
                 let copy = [...savedRecipes];
                 copy.splice(index, 1);
                 setSavedRecipes(copy);
+                setNotes("");
               });
           });
       }
@@ -123,7 +153,7 @@ const Recipe = () => {
           });
           const equipmentList = Array.from(equipmentSet)
           setEquipment(equipmentList);
-
+          setNotes(notes);
           const recipeInfo = {
             "name" : recipeData["title"],
             "servings" : recipeData["servings"],
@@ -131,7 +161,8 @@ const Recipe = () => {
             "image" : recipeData["image"],
             "ingredients" : ingredientList,
             "equipment" : equipmentList,
-            "stepsLong" : recipeData["analyzedInstructions"][0]["steps"]
+            "stepsLong" : recipeData["analyzedInstructions"][0]["steps"],
+            "notes" : ""
           }
           window.localStorage.setItem(id, JSON.stringify(recipeInfo));
         })
@@ -145,6 +176,7 @@ const Recipe = () => {
         setIngredients(recipeInfo["ingredients"]);
         setEquipment(recipeInfo["equipment"]);
         setSteps(recipeInfo["stepsLong"].map((item) => item.step));
+        setNotes(recipeInfo["notes"]);
       }
 
       //saving the recipe
@@ -182,7 +214,7 @@ const Recipe = () => {
       <Header
           back={-1}
           Right={Bookmark}
-          rightOnClick={handleSave}
+          rightOnClick={handleClickOpen}
           rightStyle={`w-8 h-8 ${save ? "fill-[#FEE135]" : ""} stroke-[#FEE135]`}
       />
       <div className="space-y-4 mx-8">
@@ -232,6 +264,11 @@ const Recipe = () => {
               );
             })}
         </div>
+        {notes && notes.length > 0 ? 
+        <div className="w-full flex flex-col">
+          <h2 className="text-2xl font-bold text-gray-700 mb-4">Notes:</h2>
+          <h4 className="text-l mb-4">{notes}</h4>
+        </div> : <div></div>}
         <Button
           onClick={handleFinish}
           className="schedule-finish-button"
@@ -240,6 +277,25 @@ const Recipe = () => {
           Add to menu
         </Button>
       </div>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>Save Recipe</DialogTitle>
+        <DialogContent>
+          <TextField
+            autoFocus
+            margin="normal"
+            id="notes"
+            label="Notes for recipe"
+            type="text"
+            fullWidth
+            variant="standard"
+            onChange={(e) => setNotes(e.target.value)}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleSave}>Save</Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 };
