@@ -6,7 +6,7 @@ import axios from "axios";
 import { firebaseConfig, auth } from "./firebase";
 import { useParams, useNavigate } from "react-router-dom";
 
-import recentRecipes from "../data/recent"
+// import recentRecipes from "../data/recent"
 import popularRecipes from "../data/popular";
 import { ReactComponent as Search } from "../assets/icons/search.svg";
 
@@ -33,8 +33,21 @@ const RecipeBrowse = ({ pageName }) => {
     console.log(pageName)
     if (pageName === "Trending Recipes")
       setRecipes(popularRecipes.results);
-    else if (pageName === "Recent Recipes")
-      setRecipes(recentRecipes.results);
+    else if (pageName === "Recent Recipes") {
+      let recentRecipesLength = window.localStorage.length;
+      let recentRecipes = [];
+      for(let i = 0; i < recentRecipesLength; i++) {
+        let recipeId = window.localStorage.key(i);
+        if(recipeId === 'items') continue;
+        let recipeInfo = JSON.parse(window.localStorage.getItem(recipeId));
+        let recipe = {};
+        recipe.id = recipeId;
+        recipe.title = recipeInfo.name;
+        recipe.image = recipeInfo.image;
+        recentRecipes.push(recipe);
+      }
+      if(recentRecipes.length > 0) setRecipes(recentRecipes);
+    }
     else if (pageName === "Saved Recipes") {
       if(auth && auth.currentUser) {
         axios
@@ -47,6 +60,7 @@ const RecipeBrowse = ({ pageName }) => {
           }
         ).then((res) => {
           if (res.data) {
+            console.log(Object.values(res.data));
             setRecipes(Object.values(res.data))
           }else {
             setRecipes(null);
