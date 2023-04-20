@@ -113,7 +113,7 @@ const Home = () => {
             })}
           </div>
         </div>
-        <div className="w-full rounded-lg px-1 py-4">
+        <div className="w-full rounded-lg px-4 py-4">
           <div className="flex justify-between items-center mb-4">
             <h1 className="text-2xl font-bold ">Your Menu</h1>
             {JSON.parse(window.localStorage.getItem("items")) &&
