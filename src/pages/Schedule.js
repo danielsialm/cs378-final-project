@@ -13,9 +13,9 @@ import ScheduleCarousel from "./ScheduleCarousel";
 
 const Schedule = () => {
   const navigate = useNavigate();
-  const [ingredients_all, setIngredients] = useState([]);
-  const [equipment_all, setEquipment] = useState([]);
-  const [steps_fin, setStepsFin] = useState([]);
+  const [ingredients_all, setIngredients] = useState(["Loading..."]);
+  const [equipment_all, setEquipment] = useState(["Loading..."]);
+  const [steps_fin, setStepsFin] = useState(null);
   const [time_all, setTime] = useState(0);
   const [notes_all, setNotes] = useState([]);
   
@@ -27,9 +27,8 @@ const Schedule = () => {
     var notesList = [];
     var steps = [];
     var time = 0;
+    // merge ingredients and equipments list, calculate estimated time
     scheduleItems.forEach((element) => {
-      console.log('what is the element?');
-      console.log(element);
       const recipeInfo = JSON.parse(window.localStorage.getItem(element.id));
       ingredientList = ingredientList.concat(recipeInfo.ingredients);
       equipmentList = equipmentList.concat(recipeInfo.equipment);
@@ -40,24 +39,39 @@ const Schedule = () => {
       var estimatedTime = cookTime * .9;
       time += estimatedTime;
 
-      recipeInfo.stepsLong.forEach((step) => {
-        const step_info = {
-          stepDetail: step.step, 
-          recipe_id: element.id,
-          recipe_name: recipeInfo.name,
-          ingredient: step.ingredients.map((item) => item.name),
-          equipment: step.equipment.map((item) => item.name)
-        }
-        steps.push(step_info);
-      });
-
       setIngredients(ingredientList);
       setEquipment(equipmentList);
-      setStepsFin(steps);
       setTime(time);
       setNotes(notesList);
 
     });
+
+    // merge steps together
+    let index = 0;
+    let stepsMerged = [];
+    while (scheduleItems.length > 0) {
+      for (let i = scheduleItems.length - 1; i >= 0; i--) {
+        const recipeInfo = JSON.parse(window.localStorage.getItem(scheduleItems[i].id));
+        const step = recipeInfo.stepsLong[index];
+        if (!step) {
+          console.log(recipeInfo);
+        }
+        const step_info = {
+          stepDetail: step.step, 
+          recipe_id: scheduleItems[i].id,
+          recipe_name: recipeInfo.name,
+          ingredient: step.ingredients.map((item) => item.name),
+          equipment: step.equipment.map((item) => item.name)
+        }
+        stepsMerged.push(step_info);
+
+        if (index + 1 >= recipeInfo.stepsLong.length) {
+          scheduleItems.splice(i, 1);
+        }
+      }
+      index++;
+    }
+    setStepsFin(stepsMerged);
   }, []);
 
   const handleFinish = () => {

@@ -6,7 +6,9 @@ import { ReactComponent as ArrowRight } from "../assets/arrow-right.svg";
 import { ReactComponent as ArrowLeft } from "../assets/arrow-left.svg";
 
 const ScheduleCarousel = ({ steps }) => {
-  console.log(steps);
+  if (!steps) {
+    return <div>Loading...</div>;
+  }
   return (
     <Carousel
       className="bg-gray-200 w-full pt-8 pb-8 rounded-2xl"
