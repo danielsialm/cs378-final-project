@@ -220,13 +220,11 @@ const Home = () => {
                   }}>
                   <div className="flex items-center rounded-lg overflow-hidden">
                     {savedMenus[menu].items && savedMenus[menu].items.map((item) => {
-                      let width = 100/savedMenus[menu].items.length
-                      return <div className={`h-20 min-w-[${width}%] flex justify-center items-center`}><img src={item.image}  alt="" /></div>
+                      return <div className="flex justify-center items-center"><img className={`object-contain h-20 min-w-[${1/savedMenus[menu].items.length}%]`} src={item.image}  alt={item.name} /></div>
                     })}
                   </div>
-                  <div className="px-2 py-3">
-
-                  <h1 className="text-xl">{savedMenus[menu].name}</h1>
+                  <div className="px-2 py-1">
+                    <h1 className="text-xl">{savedMenus[menu].name}</h1>
                   </div>
                   
                 </div>
