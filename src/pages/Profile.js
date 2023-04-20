@@ -49,7 +49,9 @@ const Profile = () => {
         </div>
 
         <Button
-          onClick={logout}
+          onClick={() => {
+             window.localStorage.clear()
+             logout()}}
           className="logout-button"
           fullWidth
           variant="contained">
