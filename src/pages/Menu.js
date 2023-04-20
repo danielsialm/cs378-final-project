@@ -5,7 +5,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import MenuList from "../components/MenuList";
-import MenuCard from "../components/MenuCard";
 import { Button } from "@mui/material";
 
 import {ReactComponent as Bookmark} from "../assets/icons/bookmark.svg";
@@ -24,7 +23,6 @@ const Menu = () => {
   const navigate = useNavigate();
 
   const [menuTitle, setMenuTitle] = useState("");
-  const [recipes, setRecipes] = useState(Object.values(JSON.parse(window.localStorage.getItem("items"))));
   const [save, setSaved] = useState(false);
 
   const [open, setOpen] = React.useState(false);
@@ -44,8 +42,7 @@ const Menu = () => {
       return;
     }
     setSaved(!save);
-    console.log(recipes);
-    let send = {name: menuTitle, items: recipes};
+    let send = {name: menuTitle, items: window.localStorage.getItem("items")};
     setMenuTitle("");
     return fetch(`${firebaseConfig.databaseURL + "/" + auth.currentUser.uid}/menus.json`, {
       method: "POST",
@@ -55,7 +52,6 @@ const Menu = () => {
         console.log(res.statusText);
         // throw new Error(res.statusText);
       } else {
-        console.log("success");
         return;
       }
     });
@@ -71,7 +67,7 @@ const Menu = () => {
         <div className="your-menu-title-wrapper">
           <h1>Your Menu</h1>
         </div>
-        <MenuList recipes={recipes} />
+        <MenuList recipes={Object.values(JSON.parse(window.localStorage.getItem("items")))} />
         <Button
           onClick={() => {
             navigate("/schedule");

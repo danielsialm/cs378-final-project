@@ -33,7 +33,6 @@ const RecipeCard = ({ title, id, image }) => {
 
   useEffect(() => {
     if (auth && auth.currentUser) {
-      console.log("running")
       axios
         .get(
           `${
@@ -46,7 +45,6 @@ const RecipeCard = ({ title, id, image }) => {
         .then((res) => {
           if (res.data) {
             let recipes = Object.values(res.data);
-            // console.log(recipes)
 
             // this useEffect doesn't run when state is altered. So to avoid
             // having to make an api call each time, we will save the recipes
@@ -89,8 +87,6 @@ const RecipeCard = ({ title, id, image }) => {
       let index = savedRecipes.findIndex((recipe) => {
         return parseInt(recipe.id) === parseInt(id);
       });
-      // Recipe not saved yet
-      console.log(notes);
       if (index === -1) {
         axios
           .post(
@@ -105,8 +101,6 @@ const RecipeCard = ({ title, id, image }) => {
             let recipeInfo = JSON.parse(window.localStorage.getItem(id));
             window.localStorage.removeItem(id);
             recipeInfo["notes"] = notes;
-            console.log(recipeInfo);
-            console.log(notes);
             window.localStorage.setItem(id, JSON.stringify(recipeInfo));
             setNotes("");
           });
@@ -152,7 +146,6 @@ const RecipeCard = ({ title, id, image }) => {
 
       let index = items.findIndex((item) => parseInt(item.id) === parseInt(id));
 
-      console.log(index);
       let newArray = [...items];
       if (index === -1) {
         newArray = [...items, currentItem];
@@ -161,7 +154,6 @@ const RecipeCard = ({ title, id, image }) => {
         newArray = [...items];
       }
 
-      console.log(newArray);
       window.localStorage.setItem("items", JSON.stringify(newArray));
 
       // cache information if it doesn't exist already

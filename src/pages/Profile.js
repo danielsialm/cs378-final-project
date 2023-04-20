@@ -14,10 +14,8 @@ const Profile = () => {
   const database = "https://cookyourway-hci-default-rtdb.firebaseio.com/";
 
   const getData = () => {
-    //console.log(this.props.videoTime)
     fetch(`${database + "/" + auth.currentUser.uid}/.json`)
       .then((res) => {
-        console.log(res);
         if (res.status !== 200) {
           // throw new Error(res.statusText);
         } else {

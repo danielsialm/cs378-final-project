@@ -30,7 +30,6 @@ const RecipeBrowse = ({ pageName }) => {
   const navigate = useNavigate();
   useEffect(() => {
     
-    console.log(pageName)
     if (pageName === "Trending Recipes")
       setRecipes(popularRecipes.results);
     else if (pageName === "Recent Recipes") {
@@ -60,7 +59,6 @@ const RecipeBrowse = ({ pageName }) => {
           }
         ).then((res) => {
           if (res.data) {
-            console.log(Object.values(res.data));
             setRecipes(Object.values(res.data))
           }else {
             setRecipes(null);
@@ -71,10 +69,8 @@ const RecipeBrowse = ({ pageName }) => {
       }
     }
     else if(pageName === "Search"){
-      console.log(query)
       axios.get(`${searchURL}&query=${query}`).then((res) => {
         if(res.data){
-          console.log(res.data)
           setRecipes(res.data.results);
         }
       }).catch((err) => console.log(err));
@@ -83,7 +79,6 @@ const RecipeBrowse = ({ pageName }) => {
 
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
-      console.log("search")
       navigate(`/search/${event.target.value}`);
       navigate(0)
     }

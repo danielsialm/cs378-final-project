@@ -76,7 +76,6 @@ const Recipe = () => {
         return parseInt(recipe.id) === parseInt(id);
       });
       // Recipe not saved yet
-      console.log(notes);
       if (index === -1) {
         axios
           .post(
@@ -91,8 +90,6 @@ const Recipe = () => {
             let recipeInfo = JSON.parse(window.localStorage.getItem(id));
             window.localStorage.removeItem(id);
             recipeInfo["notes"] = notes;
-            console.log(recipeInfo);
-            console.log(notes);
             window.localStorage.setItem(id, JSON.stringify(recipeInfo));
             setNotes("");
           });

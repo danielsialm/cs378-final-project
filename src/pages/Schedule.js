@@ -21,7 +21,6 @@ const Schedule = () => {
   
   useEffect(() => {
     const scheduleItems = JSON.parse(window.localStorage.getItem("items"));
-    console.log(scheduleItems);
     var ingredientList = [];
     var equipmentList = [];
     var notesList = [];
@@ -53,9 +52,7 @@ const Schedule = () => {
       for (let i = scheduleItems.length - 1; i >= 0; i--) {
         const recipeInfo = JSON.parse(window.localStorage.getItem(scheduleItems[i].id));
         const step = recipeInfo.stepsLong[index];
-        if (!step) {
-          console.log(recipeInfo);
-        }
+
         const step_info = {
           stepDetail: step.step, 
           recipe_id: scheduleItems[i].id,

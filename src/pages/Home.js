@@ -37,7 +37,6 @@ const Home = () => {
       `${firebaseConfig.databaseURL + "/" + auth.currentUser.uid}/menus.json`
     )
       .then((res) => {
-        console.log(res);
         if (res.status !== 200) {
           console.log(res.statusText);
           // throw new Error(res.statusText);
@@ -47,7 +46,6 @@ const Home = () => {
       })
       .then((res) => {
         if (res) {
-          console.log("getData res", res);
           setSavedMenus(res);
         }
       });
@@ -69,7 +67,6 @@ const Home = () => {
 
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
-      console.log("search")
       navigate(`/search/${event.target.value}`);
     }
   };
@@ -176,14 +173,9 @@ const Home = () => {
                   key={i}
                   onClick={() => {
                     window.localStorage.setItem("items", JSON.stringify([]));
-                    console.log('is this format weird?');
-                    console.log(savedMenus[menu].items);
                     window.localStorage.setItem("items", JSON.stringify(savedMenus[menu].items));
                     
                     savedMenus[menu].items.forEach((currentItem) => {
-                      console.log('checking wehere we are at');
-                      console.log(currentItem);
-                      console.log(currentItem.id);
                       // cache information if it doesn't exist already
                       if(!window.localStorage.getItem(currentItem.id)) {
                         let identifier = currentItem.id;
@@ -214,8 +206,6 @@ const Home = () => {
                       };
                     });
 
-                    console.log('what are we storing in local storages');
-                    console.log(JSON.parse(window.localStorage.getItem("items")));
                     navigate("/menu");
                   }}>
                   <div className="flex items-center rounded-lg overflow-hidden">

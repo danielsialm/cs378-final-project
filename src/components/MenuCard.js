@@ -1,23 +1,24 @@
 import { useState, useEffect } from "react";
 import "./MenuCard.css";
+import { ReactComponent as X } from "../assets/x.svg";
 import minus from "../assets/minus.svg";
 import plus from "../assets/plus.svg";
 
-const MenuCard = ({ title, id, image }) => {
-  const [quantity, setQuantity] = useState(1);
+const MenuCard = ({ title, id, image, updateRecipes }) => {
 
-  function increment() {
-    setQuantity(prevCount => prevCount+=1);
-  }
-
-  function decrement() {
-    setQuantity(function (prevCount) {
-      if (prevCount > 0) {
-        return (prevCount -= 1); 
-      } else {
-        return (prevCount = 0);
-      }
-    });
+  const handleDelete = (e) => {
+    let items = JSON.parse(window.localStorage.getItem("items"))
+    let index = items.findIndex((item) => item.id === id);
+    
+    if (index === -1) {
+      console.log("error: recipe is not in list")
+    } else {
+      items.splice(index, 1);
+      let newArray = [...items]
+      window.localStorage.setItem("items", JSON.stringify(newArray));
+      updateRecipes(newArray);
+    }
+    e.stopPropagation()
   }
 
   return (
@@ -27,15 +28,7 @@ const MenuCard = ({ title, id, image }) => {
         <div className="menu-card-info">
           <h3>{title}</h3>
         </div>
-        {/* <div className="quantity-selector-wrapper">
-          <div className="decrement-quantity mr-1" onClick={decrement}>
-            <img src={minus} alt="Decrement quantity" />
-          </div>
-          <p className="menu-card-quantity">{quantity}</p>
-          <div className="increment-quantity ml-1" onClick={increment}>
-            <img src={plus} alt="Increment quantity" />
-          </div>
-        </div> */}
+        <X className="stroke-red-500 w-1/12" onClick={handleDelete} />
       </div>
     </div>
   );
