@@ -27,7 +27,7 @@ const MenuCard = ({ title, id, image }) => {
         <div className="menu-card-info">
           <h3>{title}</h3>
         </div>
-        <div className="quantity-selector-wrapper">
+        {/* <div className="quantity-selector-wrapper">
           <div className="decrement-quantity mr-1" onClick={decrement}>
             <img src={minus} alt="Decrement quantity" />
           </div>
@@ -35,7 +35,7 @@ const MenuCard = ({ title, id, image }) => {
           <div className="increment-quantity ml-1" onClick={increment}>
             <img src={plus} alt="Increment quantity" />
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
