@@ -13,7 +13,7 @@ import { ReactComponent as Search } from "../assets/icons/search.svg";
 const RecipeBrowse = ({ pageName }) => {
   const [recipes, setRecipes] = useState(null);
 
-  // const src = 'https://api.spoonacular.com/recipes/complexSearch?apiKey=09a121a6694d4d7e8473e2226fefe82f&sort=popularity'
+  // const src = 'https://api.spoonacular.com/recipes/complexSearch?apiKey=09a121a6694d4d7e8473e2226fefe82f&instructionsRequired=True&sort=popularity'
   // useEffect(() => {
   //   fetch(src)
   //     .then(response => response.json())

@@ -1,0 +1,18 @@
+{
+  "menuName": "Thanksgiving Dinner",
+  "ingredients": [
+
+  ],
+  "equipment": [
+
+  ],
+  "step":  [
+    {
+      "stepDetail": "", 
+      "recipe_id": "",
+      "ingredient": [],
+      "equipment": []
+    }
+  ],
+  "time": 0
+}
