@@ -9,6 +9,7 @@ import { useParams, useNavigate } from "react-router-dom";
 // import recentRecipes from "../data/recent"
 import popularRecipes from "../data/popular";
 import { ReactComponent as Search } from "../assets/icons/search.svg";
+import { Button } from "bootstrap";
 
 const RecipeBrowse = ({ pageName }) => {
   const [recipes, setRecipes] = useState(null);
@@ -79,6 +80,9 @@ const RecipeBrowse = ({ pageName }) => {
         }
       }).catch((err) => console.log(err));
     }
+    else if(pageName === "My Recipes"){
+      //get my recipies from db
+    }
   }, []);
 
   const handleKeyDown = (event) => {
@@ -117,9 +121,11 @@ const RecipeBrowse = ({ pageName }) => {
               </div> */}
             </div>
           }
-        
-        <RecipesList recipes={recipes} />
-      </div>
+        {recipes ? <RecipesList recipes={recipes} /> : <div className="text-center pb-10 text-gray-500">No Recpies Here Yet</div>}
+        {pageName === "My Recipes" &&
+        <div className="w-full p-4 bg-green-300 text-center text-lg rounded-lg shadow" onClick={() => navigate("/create")}>Create Recipe</div>
+        }
+        </div>
     </div>
   );
 };
