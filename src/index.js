@@ -11,6 +11,7 @@ import Recipe from './pages/Recipe';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Profile from './pages/Profile';
+import Create from './pages/Create';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -29,6 +30,7 @@ root.render(
         <Route path="/menu" element={<Menu />}/>
         <Route path="/schedule" element={<Schedule />}/>
         <Route path="/recipe/:id" element={<Recipe />}/>
+        <Route path="/create" element = {<Create/>}/>
       </Routes>
     </React.StrictMode>
   </HashRouter>

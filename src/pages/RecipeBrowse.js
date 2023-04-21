@@ -9,6 +9,7 @@ import { useParams, useNavigate } from "react-router-dom";
 // import recentRecipes from "../data/recent"
 import popularRecipes from "../data/popular";
 import { ReactComponent as Search } from "../assets/icons/search.svg";
+import { Button } from "bootstrap";
 
 const RecipeBrowse = ({ pageName }) => {
   const [recipes, setRecipes] = useState(null);
@@ -29,7 +30,6 @@ const RecipeBrowse = ({ pageName }) => {
   const { query } = useParams();
   const navigate = useNavigate();
   useEffect(() => {
-    
     if (pageName === "Trending Recipes")
       setRecipes(popularRecipes.results);
     else if (pageName === "Recent Recipes") {
@@ -75,6 +75,36 @@ const RecipeBrowse = ({ pageName }) => {
         }
       }).catch((err) => console.log(err));
     }
+    else if(pageName === "My Recipes"){
+      //get my recipies from db
+      if(auth && auth.currentUser) {
+        axios
+        .get(
+          `${
+            firebaseConfig.databaseURL + "/" + auth.currentUser.uid
+          }/created.json`,
+          {
+            method: "GET",
+          }
+        ).then((res) => {
+          if (res.data) {
+            setRecipes(Object.values(res.data))
+            let temp = Object.values(res.data);
+            for(let i = 0; i < temp.length; i++){
+              if(!window.localStorage.getItem(temp[i].id)) {
+                window.localStorage.setItem(temp[i].id, JSON.stringify(temp[i]));
+              }
+            }
+          }else {
+            setRecipes(null);
+          }
+        })
+
+      
+      }else {
+        alert("Please login to save recipes.");
+      }
+    }
   }, []);
 
   const handleKeyDown = (event) => {
@@ -112,9 +142,11 @@ const RecipeBrowse = ({ pageName }) => {
               </div> */}
             </div>
           }
-        
-        <RecipesList recipes={recipes} />
-      </div>
+        {recipes ? <RecipesList recipes={recipes} /> : <div className="text-center pb-10 text-gray-500">No Recpies Here Yet</div>}
+        {pageName === "My Recipes" &&
+        <div className="w-full p-4 bg-green-300 text-center text-lg rounded-lg shadow" onClick={() => navigate("/create")}>Create Recipe</div>
+        }
+        </div>
     </div>
   );
 };
