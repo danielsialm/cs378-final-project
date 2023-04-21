@@ -142,7 +142,7 @@ const RecipeBrowse = ({ pageName }) => {
               </div> */}
             </div>
           }
-        {recipes ? <RecipesList recipes={recipes} /> : <div className="text-center pb-10 text-gray-500">No Recpies Here Yet</div>}
+        {recipes ? <RecipesList recipes={recipes} /> : <div className="text-center pb-10 text-gray-500">No Recipes Here Yet</div>}
         {pageName === "My Recipes" &&
         <div className="w-full p-4 bg-green-300 text-center text-lg rounded-lg shadow" onClick={() => navigate("/create")}>Create Recipe</div>
         }
