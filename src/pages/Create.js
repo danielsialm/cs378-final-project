@@ -176,42 +176,41 @@ const Create = () => {
   };
 
   const ingredientsKeyDown = (event, i) => {
-    //if (event.key === 'Enter') {
-        let temp = [...ingredients];
-        console.log("temp", temp)
-        temp[i] = event.target.value;
-        if (event.key === 'Enter' && i == temp.length - 1){
-            //add new ingredient
-            temp.push("");
-        }
-        setIngredients(temp);
-        console.log(ingredients)
-    //}
+      let temp = [...ingredients];
+      console.log("temp", temp)
+      temp[i] = event.target.value;
+      if (event.key === 'Enter' && i == temp.length - 1){
+        temp.push("");
+      }
+      if (event.key === 'Backspace' && i !== 0 && temp[i] === "") {
+        temp.splice(i, 1);
+      }
+      setIngredients(temp);
   }
 
   const equipmentsKeyDown = (event, i) => {
-    //if (event.key === 'Enter') {
-        let temp = [...equipment];
-        console.log("temp", temp)
-        temp[i] = event.target.value;
-        if (event.key === 'Enter' && i == temp.length - 1){
-            //add new ingredient
-            temp.push("");
-        }
-        setEquipment(temp);
-    //}
+      let temp = [...equipment];
+      console.log("temp", temp)
+      temp[i] = event.target.value;
+      if (event.key === 'Enter' && i == temp.length - 1){
+          temp.push("");
+      }
+      if (event.key === 'Backspace' && i !== 0 && temp[i] === "") {
+        temp.splice(i, 1);
+      }
+      setEquipment(temp);
   }
 
   const stepsKeyDown = (event, i) => {
-    //if (event.key === 'Enter') {
-        let temp = [...steps];
-        temp[i] = event.target.value;
-        if (event.key === 'Enter' && i == temp.length - 1){
-            //add new ingredient
-            temp.push("");
-        }
-        setSteps(temp);
-    //}
+      let temp = [...steps];
+      temp[i] = event.target.value;
+      if (event.key === 'Enter' && i == temp.length - 1){
+          temp.push("");
+      }
+      if (event.key === 'Backspace' && i !== 0 && temp[i] === "") {
+        temp.splice(i, 1);
+      }
+      setSteps(temp);
   }
 
   const nameKeyDown = (event) => {
