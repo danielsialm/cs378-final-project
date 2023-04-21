@@ -57,8 +57,8 @@ const Schedule = () => {
           stepDetail: step.step, 
           recipe_id: scheduleItems[i].id,
           recipe_name: recipeInfo.name,
-          ingredient: step.ingredients.map((item) => item.name),
-          equipment: step.equipment.map((item) => item.name)
+          ingredient: step.ingredients ? step.ingredients.map((item) => item.name) : [],
+          equipment: step.equipment ? step.equipment.map((item) => item.name) : [],
         }
         stepsMerged.push(step_info);
 
