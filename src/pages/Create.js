@@ -11,8 +11,8 @@ import { ReactComponent as Bookmark } from "../assets/bookmark.svg";
 import recipeData from "../data/recipe.json";
 
 const Create = () => {
-  const { id } = useParams();
-  const [name, setName] = useState("Your Custom Recipie");
+  
+  const [name, setName] = useState("Your Custom Recipe");
   const [servings, setServings] = useState(0);
   const [time, setTime] = useState(0);
   const [ingredients, setIngredients] = useState(["New Ingredient"]);
@@ -20,13 +20,27 @@ const Create = () => {
   const [steps, setSteps] = useState(["New Step"]);
   const [save, setSaved] = useState(false);
   const [savedRecipes, setSavedRecipes] = useState([]);
-
-  let currentItem = {};
-  currentItem.title = name;
-  currentItem.image = "";
-  currentItem.id = id;
+  const id = -1 * Math.floor(Math.random() * 1000000);
 
   const handleFinish = () => {
+    let temp = [];
+    for(let i = 0; i < steps.length; i++){
+      temp.push({step: steps[i]})
+    }
+    let currentItem = {
+      custom: true,
+      equipment: equipment,
+      image: "https://previews.123rf.com/images/kroljaaa/kroljaaa1407/kroljaaa140700055/30112170-seamless-kitchen-background-of-vegetables-beautiful-background-vector-illustration-endless-texture.jpg",
+      ingredients: ingredients,
+      name: name,
+      stepsLong: temp,
+      time: 0,
+      title: name,
+      id: id,
+    }
+    if(!window.localStorage.getItem(id)) {
+      window.localStorage.setItem(id, JSON.stringify(currentItem));
+    }
     //adding it to a menu
     let items = JSON.parse(window.localStorage.getItem("items")) || [];
 
@@ -46,13 +60,23 @@ const Create = () => {
   };
 
   const saveRecipe = () => {
+    let temp = [];
+    for(let i = 0; i < steps.length; i++){
+      temp.push({step: steps[i]})
+    }
     let currentItem = {
+      custom: true,
       equipment: equipment,
-      image: "",
+      image: "https://previews.123rf.com/images/kroljaaa/kroljaaa1407/kroljaaa140700055/30112170-seamless-kitchen-background-of-vegetables-beautiful-background-vector-illustration-endless-texture.jpg",
       ingredients: ingredients,
       name: name,
-      stepsLong: steps,
+      title: name,
+      stepsLong: temp,
       time: 0,
+      id: id,
+    }
+    if(!window.localStorage.getItem(id)) {
+      window.localStorage.setItem(id, JSON.stringify(currentItem));
     }
 
     if (!auth || !auth.currentUser) {
@@ -68,6 +92,7 @@ const Create = () => {
           console.log(res.statusText);
           // throw new Error(res.statusText);
         } else {
+          alert("Saved Recipe")
           console.log("success");
           return;
         }
@@ -85,6 +110,21 @@ const Create = () => {
       });
 
       console.log(index);
+      let temp = [];
+      for(let i = 0; i < steps.length; i++){
+        temp.push({step: steps[i]})
+      }
+      let currentItem = {
+        custom: true,
+        equipment: equipment,
+        image: "https://previews.123rf.com/images/kroljaaa/kroljaaa1407/kroljaaa140700055/30112170-seamless-kitchen-background-of-vegetables-beautiful-background-vector-illustration-endless-texture.jpg",
+        ingredients: ingredients,
+        name: name,
+        stepsLong: temp,
+        time: 0,
+        title: name,
+        id: id,
+      }
 
       // Recipe not saved yet
       if (index === -1) {
@@ -176,6 +216,7 @@ const Create = () => {
 
   const nameKeyDown = (event) => {
       setName(event.target.value);
+      console.log(name);
   }
 
   return (
@@ -188,7 +229,7 @@ const Create = () => {
       />
       <div className="space-y-4 mx-8">
         <div>
-          <input type={"text"} className="text-3xl font-bold mb-8 w-full" placeholder={name} onKeyDown = {(e)=>nameKeyDown(e)}></input>
+          <input type={"text"} className="text-3xl font-bold mb-8 w-full" placeholder={name} onInput = {(e)=>nameKeyDown(e)}></input>
         </div>
         <div>
           <h2 className="text-2xl font-bold text-gray-700 mb-4">
@@ -249,8 +290,16 @@ const Create = () => {
           onClick={saveRecipe}
           className="schedule-finish-button"
           fullWidth
-          variant="containe d">
-          Save Recpie
+          variant="contained">
+          Save Recipe
+        </Button>
+
+        <Button
+          onClick = {handleFinish}
+          className="schedule-finish-button"
+          fullWidth
+          variant="contained">
+          Add to Menu
         </Button>
       </div>
     </>

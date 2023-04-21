@@ -20,13 +20,34 @@ import { useState, useEffect } from "react";
 import "./Home.css";
 import { firebaseConfig, auth } from "./firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-
+import axios from "axios";
 const Home = () => {
   const [user, loading] = useAuthState(auth);
   const navigate = useNavigate();
   const [reload, setReload] = useState(0); // Used to reload the page when you remove item from Your Menu
-
-  const [savedMenus, setSavedMenus] = useState(null);
+  const [savedMenus, setSavedMenus] = useState(null)
+  const cacheCreatedRecipes = () => {
+    if(auth && auth.currentUser) {
+        axios
+        .get(
+          `${
+            firebaseConfig.databaseURL + "/" + auth.currentUser.uid
+          }/created.json`,
+          {
+            method: "GET",
+          }
+        ).then((res) => {
+          if (res.data) {
+            let temp = Object.values(res.data);
+            for(let i = 0; i < temp.length; i++){
+              if(!window.localStorage.getItem(temp[i].id)) {
+                window.localStorage.setItem(temp[i].id, JSON.stringify(temp[i]));
+              }
+            }
+          }
+        })
+      }
+  }
 
   const getSavedMenus = () => {
     if (!auth || !auth.currentUser) {
@@ -63,6 +84,7 @@ const Home = () => {
     if (user) {
       getSavedMenus();
     }
+    cacheCreatedRecipes();
   }, [user, loading, navigate]);
 
   const handleKeyDown = (event) => {

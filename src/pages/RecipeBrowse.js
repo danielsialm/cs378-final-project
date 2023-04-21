@@ -30,7 +30,6 @@ const RecipeBrowse = ({ pageName }) => {
   const { query } = useParams();
   const navigate = useNavigate();
   useEffect(() => {
-    
     if (pageName === "Trending Recipes")
       setRecipes(popularRecipes.results);
     else if (pageName === "Recent Recipes") {
@@ -78,6 +77,33 @@ const RecipeBrowse = ({ pageName }) => {
     }
     else if(pageName === "My Recipes"){
       //get my recipies from db
+      if(auth && auth.currentUser) {
+        axios
+        .get(
+          `${
+            firebaseConfig.databaseURL + "/" + auth.currentUser.uid
+          }/created.json`,
+          {
+            method: "GET",
+          }
+        ).then((res) => {
+          if (res.data) {
+            setRecipes(Object.values(res.data))
+            let temp = Object.values(res.data);
+            for(let i = 0; i < temp.length; i++){
+              if(!window.localStorage.getItem(temp[i].id)) {
+                window.localStorage.setItem(temp[i].id, JSON.stringify(temp[i]));
+              }
+            }
+          }else {
+            setRecipes(null);
+          }
+        })
+
+      
+      }else {
+        alert("Please login to save recipes.");
+      }
     }
   }, []);
 
