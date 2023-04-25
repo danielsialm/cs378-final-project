@@ -42,7 +42,7 @@ const Menu = () => {
       return;
     }
     setSaved(!save);
-    let send = {name: menuTitle, items: window.localStorage.getItem("items")};
+    let send = {name: menuTitle, items: JSON.parse(window.localStorage.getItem("items"))};
     setMenuTitle("");
     return fetch(`${firebaseConfig.databaseURL + "/" + auth.currentUser.uid}/menus.json`, {
       method: "POST",
